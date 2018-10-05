@@ -1,31 +1,11 @@
-h1 Listing claims
-
-table
-  thead
-    tr
-      th Date
-      th Status
-      th Verifier
-      th Approver
-      th Staff
-      th Aasm state
-      th
-      th
-      th
-
-  tbody
-    - @claims.each do |claim|
-      tr
-        td = claim.date
-        td = claim.status
-        td = claim.verifier_id
-        td = claim.approver_id
-        td = claim.staff_id
-        td = claim.aasm_state
-        td = link_to 'Show', claim
-        td = link_to 'Edit', edit_claim_path(claim)
-        td = link_to 'Destroy', claim, data: { confirm: 'Are you sure?' }, method: :delete
-
-br
-
-= link_to 'New Claim', new_claim_path
+h3 Claims
+table.table.table-default id="claims dttb" class="display" data-source="#{claims_url(format: 'json')}"
+	thead
+	  tr
+	    th
+	      | Date
+	    th
+	      | Status
+	    th
+	      | Staff
+	tbody

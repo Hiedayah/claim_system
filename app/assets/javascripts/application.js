@@ -13,4 +13,8 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
+//= require datatables
 //= require_tree .
+$(document).ready(function() {
+  $("#dttb").dataTable();
+});
