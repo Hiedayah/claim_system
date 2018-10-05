@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Expense date:
+  = @expense.expense_date
+p
+  strong Description:
+  = @expense.description
+p
+  strong Expense type:
+  = @expense.expense_type
+p
+  strong File:
+  = @expense.file
+p
+  strong Claim:
+  = @expense.claim_id
+
+=> link_to 'Edit', edit_expense_path(@expense)
+'|
+=< link_to 'Back', expenses_path

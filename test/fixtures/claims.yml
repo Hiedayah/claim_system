@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2018-10-04
+  status: MyString
+  verifier_id: 1
+  approver_id: 1
+  staff_id: 1
+  aasm_state: MyString
+
+two:
+  date: 2018-10-04
+  status: MyString
+  verifier_id: 1
+  approver_id: 1
+  staff_id: 1
+  aasm_state: MyString

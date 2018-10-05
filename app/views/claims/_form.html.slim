@@ -1,0 +1,14 @@
+= simple_form_for(@claim) do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .form-inputs
+    = f.input :date
+    = f.input :status
+    = f.input :verifier_id
+    = f.input :approver_id
+    = f.input :staff_id
+    = f.input :aasm_state
+
+  .form-actions
+    = f.button :submit

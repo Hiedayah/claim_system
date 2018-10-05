@@ -1,0 +1,24 @@
+p#notice = notice
+
+p
+  strong Date:
+  = @claim.date
+p
+  strong Status:
+  = @claim.status
+p
+  strong Verifier:
+  = @claim.verifier_id
+p
+  strong Approver:
+  = @claim.approver_id
+p
+  strong Staff:
+  = @claim.staff_id
+p
+  strong Aasm state:
+  = @claim.aasm_state
+
+=> link_to 'Edit', edit_claim_path(@claim)
+'|
+=< link_to 'Back', claims_path

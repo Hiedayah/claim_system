@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  expense_date: 2018-10-04
+  description: MyString
+  expense_type: 1
+  file: MyString
+  claim_id: 1
+
+two:
+  expense_date: 2018-10-04
+  description: MyString
+  expense_type: 1
+  file: MyString
+  claim_id: 1
