@@ -1,0 +1,28 @@
+nav.navbar.navbar-inverse
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle[type="button" data-toggle="collapse" data-target="#myNavbar"]
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand[href="#"]
+        | Logo
+    #myNavbar.collapse.navbar-collapse
+      ul.nav.navbar-nav
+        li.active
+          a[href="#"]
+            | Home
+        li
+          a[href="#"]
+            | Messages
+      form.navbar-form.navbar-right[role="search"]
+        .form-group.input-group
+          input.form-control[type="text" placeholder="Search.."]
+          span.input-group-btn
+            button.btn.btn-default[type="button"]
+              span.glyphicon.glyphicon-search
+      ul.nav.navbar-nav.navbar-right
+        li
+          a[href="#"]
+            span.glyphicon.glyphicon-user
+            |  My Account
