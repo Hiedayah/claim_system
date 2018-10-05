@@ -4,20 +4,27 @@ p
   strong Date:
   = @claim.date
 p
-  strong Status:
-  = @claim.status
-p
-  strong Verifier:
-  = @claim.verifier_id
-p
-  strong Approver:
-  = @claim.approver_id
-p
   strong Staff:
-  = @claim.staff_id
+  = @claim.staff.name
 p
   strong Aasm state:
   = @claim.aasm_state
+
+
+= link_to 'New Expense', new_expense_path(claim_id: @claim.id)
+table.table.table-default id="dttb-expenses" class="display" data-source="#{expenses_url(claim_id: @claim.id, format: 'json')}"
+  thead
+    tr
+      th data-data="expense_date"
+        | Expense Date
+      th data-data="description"
+        | Description
+      th data-data="expense_type"
+        | Expense type
+      th data-data="expense_value"
+        | Expense Value
+      th data-data="file"
+        | File
 
 => link_to 'Edit', edit_claim_path(@claim)
 '|

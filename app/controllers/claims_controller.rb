@@ -1,15 +1,18 @@
 class ClaimsController < ApplicationController
   before_action :set_claim, only: [:show, :edit, :update, :destroy]
-
+  respond_to :html, :json
   # GET /claims
   # GET /claims.json
   def index
-    if current_staff.admin?
-      @claims_localhost = Claim.joins(:staff).where(staffs: {company: 'Localhost'})
-      @claims_dnsv = Claim.joins(:staff).where(staffs: {company: 'Dnsvault'})
-    else
-      @claims = Claim.where(staff_id: current_staff.id)
-    end
+    @claims = Claim.all
+    # if current_staff.admin?
+    #   @claims_localhost = Claim.joins(:staff).where(staffs: {company: 'Localhost'})
+    #   @claims_dnsv = Claim.joins(:staff).where(staffs: {company: 'Dnsvault'})
+    # else
+    #   @claims = Claim.where(staff_id: current_staff.id)
+    # end
+
+    respond_with(@claims)
   end
 
   # GET /claims/1

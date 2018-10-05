@@ -1,10 +1,17 @@
 class ExpensesController < ApplicationController
   before_action :set_expense, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_claim
   # GET /expenses
   # GET /expenses.json
   def index
+    if params[:claim_id]
+      Rails.logger.debug("atas")
+    @expenses = @claim.expenses.all
+    else
+            Rails.logger.debug("bawah")
+
     @expenses = Expense.all
+    end 
   end
 
   # GET /expenses/1
@@ -14,7 +21,11 @@ class ExpensesController < ApplicationController
 
   # GET /expenses/new
   def new
-    @expense = Expense.new
+    if params[:claim_id]
+      @expense = @claim.expenses.build
+    else
+      @expense = Expense.new
+    end
   end
 
   # GET /expenses/1/edit
@@ -24,8 +35,11 @@ class ExpensesController < ApplicationController
   # POST /expenses
   # POST /expenses.json
   def create
-    @expense = Expense.new(expense_params)
-
+    if params[:claim_id]
+      @expense = @claim.expenses.build(expense_params)
+    else
+      @expense = Expense.new(expense_params)
+    end
     respond_to do |format|
       if @expense.save
         format.html { redirect_to @expense, notice: 'Expense was successfully created.' }
@@ -67,8 +81,14 @@ class ExpensesController < ApplicationController
       @expense = Expense.find(params[:id])
     end
 
+    def set_claim
+      if params[:claim_id]
+          @claim = Claim.find(params[:claim_id])
+      end
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def expense_params
-      params.require(:expense).permit(:expense_date, :description, :expense_type, :file, :claim_id)
+      params.require(:expense).permit(:expense_date, :expense_value, :description, :expense_type, :file, :claim_id)
     end
 end

@@ -1,11 +1,14 @@
 h3 Claims
-table.table.table-default id="claims dttb" class="display" data-source="#{claims_url(format: 'json')}"
+table.table.table-default id="dttb-claims" class="display" data-source="#{claims_url(format: 'json')}"
 	thead
 	  tr
-	    th
+	    th data-data="date"
 	      | Date
-	    th
+	    th data-data="aasm_state"
 	      | Status
-	    th
+	    th data-data="staff_id"
 	      | Staff
-	tbody
+	    /th data-data="url" Action
+	
+
+

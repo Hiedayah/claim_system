@@ -1,2 +1,4 @@
-json.extract! expense, :id, :expense_date, :description, :expense_type, :file, :claim_id, :created_at, :updated_at
-json.url expense_url(expense, format: :json)
+Rails.logger.debug("MASUK JSON NIE")
+json.extract! expense, :id, :expense_date, :description, :expense_type, :expense_value, :file
+json.file expense.file_identifier
+#json.url expense_url(expense, format: :json)
