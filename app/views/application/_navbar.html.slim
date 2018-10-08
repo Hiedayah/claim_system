@@ -22,7 +22,8 @@ nav.navbar.navbar-inverse
             button.btn.btn-default[type="button"]
               span.glyphicon.glyphicon-search
       ul.nav.navbar-nav.navbar-right
-        li
-          a[href="#"]
-            span.glyphicon.glyphicon-user
-            |  My Account
+        - if staff_signed_in?
+          li
+            = link_to destroy_staff_session_path, method: :delete do
+              span.glyphicon.glyphicon-user
+              = "Logout " + "(#{current_staff.email})"
