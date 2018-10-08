@@ -1,13 +1,8 @@
-h3 Claims
-table.table.table-default id="dttb-claims" class="display" data-source="#{claims_url(format: 'json')}"
-	thead
-	  tr
-	    th data-data="date"
-	      | Date
-	    th data-data="aasm_state"
-	      | Status
-	    th data-data="staff_id"
-	      | Staff
-	    /th data-data="url" Action
+
+-if current_staff.admin?
+	= render 'admin_view'
+-else
+	= render 'staff_view'
+	
 
 

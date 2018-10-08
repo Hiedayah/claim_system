@@ -1,10 +1,16 @@
 class ClaimsController < ApplicationController
-  before_action :set_claim, only: [:show, :edit, :update, :destroy]
+  before_action :set_claim, except: [:index]
   respond_to :html, :json
   # GET /claims
   # GET /claims.json
   def index
-    @claims = Claim.all
+    #@claims = Claim.all
+     if current_staff.admin?
+        @claims = Claim.joins(:staff).where(staffs: {company: params[:section]}).where.not(aasm_state: "submitted")
+     else
+        @claims = current_staff.claims
+     end
+
     # if current_staff.admin?
     #   @claims_localhost = Claim.joins(:staff).where(staffs: {company: 'Localhost'})
     #   @claims_dnsv = Claim.joins(:staff).where(staffs: {company: 'Dnsvault'})
@@ -58,6 +64,26 @@ class ClaimsController < ApplicationController
       end
     end
   end
+
+def print_claim
+    @expense_entries = @claim.expenses
+    respond_to do |format|
+      format.html { render layout: 'pdf' }
+      format.pdf do
+        render pdf: "print_claim", template: 'claims/print_claim', layout: 'pdf', footer: { left: '[page] of [topage]'}   # Excluding ".pdf" extension.
+      end
+    end
+end
+
+['submit', 'approve','verify'].each do |method|
+  define_method "#{method}" do
+    if @claim.send("#{method}!")
+      redirect_to @claim, notice: "#{method}!"
+    else
+      redirect_to @claim, alert: "Failed to #{method}!"
+    end
+  end
+end
 
   # DELETE /claims/1
   # DELETE /claims/1.json

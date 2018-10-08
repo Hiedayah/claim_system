@@ -11,7 +11,9 @@ p
   = @claim.aasm_state
 
 
-= link_to 'New Expense', new_expense_path(claim_id: @claim.id)
+= link_to 'New Expense', new_expense_path(claim_id: @claim.id) , class: "btn btn-info"
+br
+br
 table.table.table-default id="dttb-expenses" class="display" data-source="#{expenses_url(claim_id: @claim.id, format: 'json')}"
   thead
     tr
@@ -26,6 +28,10 @@ table.table.table-default id="dttb-expenses" class="display" data-source="#{expe
       th data-data="file"
         | File
 
-=> link_to 'Edit', edit_claim_path(@claim)
-'|
-=< link_to 'Back', claims_path
+
+= link_to "Print",print_claim_claim_path(@claim, format: 'pdf'), target: '_blank', class: "btn btn-info"
+br
+br
+= link_to 'Edit', edit_claim_path(@claim)
+=" | "
+= link_to 'Back', claims_path

@@ -1,33 +1,15 @@
-@import 'datatables/jquery.dataTables';
+@import 'datatables/dataTables.bootstrap';
 
 // optional remove '//=' to enable
 
-//@import 'datatables/extensions/AutoFill/autoFill.dataTables';
-//@import 'datatables/extensions/Buttons/buttons.dataTables';
-//@import 'datatables/extensions/ColReorder/colReorder.dataTables';
-//@import 'datatables/extensions/FixedColumns/fixedColumns.dataTables';
-//@import 'datatables/extensions/FixedHeader/fixedHeader.dataTables';
-//@import 'datatables/extensions/KeyTable/keyTable.dataTables';
-//@import 'datatables/extensions/Responsive/responsive.dataTables';
-//@import 'datatables/extensions/RowGroup/rowGroup.dataTables';
-//@import 'datatables/extensions/RowReorder/rowReorder.dataTables';
-//@import 'datatables/extensions/Scroller/scroller.dataTables';
-//@import 'datatables/extensions/Select/select.dataTables';
-
-
-// fix image asset url
-table.dataTable thead .sorting {
-  background-image: image-url("datatables/sort_both.png");
-}
-table.dataTable thead .sorting_asc {
-  background-image: image-url("datatables/sort_asc.png");
-}
-table.dataTable thead .sorting_desc {
-  background-image: image-url("datatables/sort_desc.png");
-}
-table.dataTable thead .sorting_asc_disabled {
-  background-image: image-url("datatables/sort_asc_disabled.png");
-}
-table.dataTable thead .sorting_desc_disabled {
-  background-image: image-url("datatables/sort_desc_disabled.png");
-}
+//@import 'datatables/extensions/AutoFill/autoFill.bootstrap';
+//@import 'datatables/extensions/Buttons/buttons.bootstrap';
+//@import 'datatables/extensions/ColReorder/colReorder.bootstrap';
+//@import 'datatables/extensions/FixedColumns/fixedColumns.bootstrap';
+//@import 'datatables/extensions/FixedHeader/fixedHeader.bootstrap';
+//@import 'datatables/extensions/KeyTable/keyTable.bootstrap';
+//@import 'datatables/extensions/Responsive/responsive.bootstrap';
+//@import 'datatables/extensions/RowGroup/rowGroup.bootstrap';
+//@import 'datatables/extensions/RowReorder/rowReorder.bootstrap';
+//@import 'datatables/extensions/Scroller/scroller.bootstrap';
+//@import 'datatables/extensions/Select/select.bootstrap';

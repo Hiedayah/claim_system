@@ -1,13 +1,24 @@
-- @claims_localhost.each do |claim|
-	- if claim.staff && claim.staff.company == "Localhost"
 
-	
+table.table.table-default id="dttb-claims-dnsv" class="display" data-source="#{claims_url(section: "Dnsvault",format: 'json')}" 
+	thead
+	  tr
+	    th data-data="date"
+	      | Date
+	    th data-data="aasm_state"
+	      | Status
+	    th data-data="staff_id"
+	      | Staff
+	    th data-data="url" Action
 
 
+table.table.table-default id="dttb-claims-localhost" class="display" data-source="#{claims_url(section: "Localhost",format: 'json')}" 
+	thead
+	  tr
+	    th data-data="date"
+	      | Date
+	    th data-data="aasm_state"
+	      | Status
+	    th data-data="staff_id"
+	      | Staff
+	    th data-data="url" Action
 
-
-
-
-
-- @claims_dnsv.each do |claim|
-	- if claim.staff && claim.staff.company == "DNS" 

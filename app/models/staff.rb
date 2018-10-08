@@ -5,4 +5,22 @@ class Staff < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :claims, dependent: :destroy
+
+  def self.approver_profile
+  	user_email = Setting.v('approver')
+  	if user_email
+  		f = Staff.find_by(email: user_email).id
+  	end
+
+  	return f
+  end
+
+  def self.verifier_profile
+  	user_email = Setting.v('verifier')
+  	if user_email
+  		f = Staff.find_by(email: user_email).id
+  	end
+
+  	return f
+  end
 end

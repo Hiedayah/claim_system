@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    meta charset="utf-8" /
+    = wicked_pdf_stylesheet_link_tag "pdf"
+    = wicked_pdf_stylesheet_link_tag "print"
+    = wicked_pdf_javascript_include_tag "number_pages"
+  body onload="number_pages" 
+  		        
+	= wicked_pdf_image_tag "http://www.localhost.my/_/rsrc/1297038463259/config/customLogo.gif?revision=1", width: "200px"
+    #content style="padding-top:50px"
+      = yield
