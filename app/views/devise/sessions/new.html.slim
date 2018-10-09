@@ -1,0 +1,30 @@
+br
+br
+br
+br
+br
+br
+br
+br
+.container
+    #signupbox.mainbox.col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2 style="margin-top:50px"
+      .panel.panel-info
+        .panel-heading
+          .panel-title
+            |Log in
+            div style="float:right;font-size:85%;position: relative; top:-10px"
+            a#signinlink href="#" onclick="$('#signupbox').hide(); $('#loginbox').show()"
+        .panel-body
+
+          = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+            
+              .form-inputs
+                = f.input :email, placeholder: "EMAIL", required: false, autofocus: true, input_html: { autocomplete: "email" }
+                = f.input :password, placeholder: "PASSWORD", required: false, input_html: { autocomplete: "current-password" }
+              /.row
+                .col-md-4
+                  = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+              
+              .form-actions style="padding-top:50px"
+                = f.button :submit, "Log in"
+              = render "devise/shared/links"

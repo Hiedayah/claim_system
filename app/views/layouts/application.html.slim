@@ -16,9 +16,9 @@ body
     - if alert
       p.alert.alert-danger= alert
     = yield
-  footer.container-fluid.text-center
+  footer.container-fluid.text-center style="color:white"
     p
-      | Localhost SDN BHD (#{Time.now})
+      | Localhost SDN BHD (#{Time.now.strftime("%d-%M-%Y %H:%M")})
   /nav.navbar.navbar-default.navbar-fixed-top role="navigation" 
     .container
       .navbar-header
