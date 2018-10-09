@@ -15,5 +15,10 @@
 //= require turbolinks
 //= require jquery
 //= require bootstrap-sprockets
+//= require bootstrap-datepicker
 //= require datatables
 //= require_tree .
+
+$(document).ready(function(){
+	$('.datepicker').datepicker();
+})

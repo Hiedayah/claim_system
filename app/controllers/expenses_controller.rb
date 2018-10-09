@@ -26,6 +26,11 @@ class ExpensesController < ApplicationController
     else
       @expense = Expense.new
     end
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /expenses/1/edit

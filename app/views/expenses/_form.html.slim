@@ -1,15 +1,27 @@
-= simple_form_for(@expense) do |f|
-  = f.error_notification
-  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
-  = f.object.errors.inspect
-  .form-inputs
-    = f.input :expense_date
-    = f.input :description
-    = f.input :expense_type
-    = f.input :expense_value
-    = f.input :claim_id
-    = f.input :file
-    /= f.input :claim_id
-
-  .form-actions
-    = f.button :submit
+.modal-dialog
+  .modal-content
+    = simple_form_for(@expense, remote: true) do |f|
+      .modal-header
+        button.close[type="button" data-dismiss="modal" aria-hidden="true"]
+          | ×
+        h5#myModalLabel
+          | Modal header
+      .modal-body
+      
+          = f.error_notification
+          = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+          /= f.object.errors.inspect
+          .row
+            .col-md-12
+              = f.input :expense_date, as: :datepicker
+              = f.input :description
+              = f.input :expense_type
+              = f.input :expense_value
+              = f.input :claim_id, as: :hidden
+              = f.input :file
+            /= f.input :claim_id
+            
+      .modal-footer
+        button.btn[data-dismiss="modal" aria-hidden="true"]
+          | Close
+        = f.submit "Save Changes", class: 'btn btn-success'

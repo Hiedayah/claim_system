@@ -11,7 +11,13 @@ p
   = @claim.aasm_state
 
 
-= link_to 'New Expense', new_expense_path(claim_id: @claim.id) , class: "btn btn-info"
+= link_to 'New Expense', new_expense_path(claim_id: @claim.id) , class: "btn btn-info", :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'
+
+
+div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+  
+
+
 br
 br
 table.table.table-default id="dttb-expenses" class="display" data-source="#{expenses_url(claim_id: @claim.id, format: 'json')}"

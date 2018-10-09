@@ -1,16 +1,10 @@
 
-br
-br
-br
-br
-br
-br
 .container
     #signupbox.mainbox.col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2 style="margin-top:50px"
-      .panel.panel-info
-        .panel-heading
-          .panel-title
-            |Sign Up
+      .panel
+        .panel-heading.panel-heading-color
+          .panel-title style="color:white; text-align:center; font-weight:bold"
+            |SIGN UP
             div style="float:right;font-size:85%;position: relative; top:-10px"
             a#signinlink href="#" onclick="$('#signupbox').hide(); $('#loginbox').show()"
         .panel-body
@@ -23,9 +17,10 @@ br
             = f.input :email,required: true, autofocus: true, input_html: { autocomplete: "email" }
             = f.input :password, required: true, placeholder: "#{@minimum_password_length.to_s + ' characters minimum' if @minimum_password_length}", input_html: { autocomplete: "new-password" }
             = f.input :password_confirmation, required: true, input_html: { autocomplete: "new-password" }
-
-            = f.button :submit, "Sign up", class: 'btn btn-info', id: 'btn-signup'
-            = render "devise/shared/links"
+            .form-actions style="text-align:center"
+                = f.button :submit, "Sign up", class: 'btn btn-info', id: 'btn-signup'
+                br
+                = render "devise/shared/links"
 
 
 
