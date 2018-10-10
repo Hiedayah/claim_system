@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   		put :submit
   		put :verify
   		put :approve
+      put :return_by_verifier
+      put :return_by_approver
   		end 
   end
   devise_for :staffs

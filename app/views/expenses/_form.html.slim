@@ -1,11 +1,11 @@
 .modal-dialog
   .modal-content
-    = simple_form_for(@expense, remote: true) do |f|
+    = simple_form_for(@expense, html:{remote: true}) do |f|
       .modal-header
         button.close[type="button" data-dismiss="modal" aria-hidden="true"]
           | ×
         h5#myModalLabel
-          | Modal header
+          = params[:action].humanize + " Expense"
       .modal-body
       
           = f.error_notification

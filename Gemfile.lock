@@ -212,6 +212,9 @@ GEM
     selenium-webdriver (3.14.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
+    show_for (0.6.1)
+      actionpack (>= 4.1)
+      activemodel (>= 4.1)
     simple_form (4.0.1)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
@@ -294,6 +297,7 @@ DEPENDENCIES
   rails-erd
   sass-rails (~> 5.0)
   selenium-webdriver
+  show_for
   simple_form
   slim-rails
   spring

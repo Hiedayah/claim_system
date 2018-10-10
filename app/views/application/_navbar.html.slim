@@ -23,4 +23,5 @@ nav.navbar style="background: #e4e9ed"
           li
             = link_to destroy_staff_session_path, method: :delete do
               span.glyphicon.glyphicon-user
+              |&nbsp;
               = "Logout " + "(#{current_staff.email})"

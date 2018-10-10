@@ -35,6 +35,10 @@ class ExpensesController < ApplicationController
 
   # GET /expenses/1/edit
   def edit
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # POST /expenses
@@ -45,39 +49,37 @@ class ExpensesController < ApplicationController
     else
       @expense = Expense.new(expense_params)
     end
-    respond_to do |format|
-      if @expense.save
-        format.html { redirect_to [@expense.claim], notice: 'Expense was successfully created.' }
-        format.json { render :show, status: :created, location: @expense }
-      else
-        format.html { render :new }
-        format.json { render json: @expense.errors, status: :unprocessable_entity }
-      end
-    end
+      @expense.save
+    # respond_to do |format|
+    #   if @expense.update(expense_params)
+    #     format.html { redirect_to @expense.claim, notice: 'Expense was successfully created.' }
+    #     format.json { render :show, status: :ok, location: @expense }
+    #   else
+    #     format.html { render :edit }
+    #     format.json { render json: @expense.errors, status: :unprocessable_entity }
+    #   end
+    # end
+   
+   respond_with_save(@expense)
   end
 
   # PATCH/PUT /expenses/1
   # PATCH/PUT /expenses/1.json
   def update
-    respond_to do |format|
-      if @expense.update(expense_params)
-        format.html { redirect_to @expense, notice: 'Expense was successfully updated.' }
-        format.json { render :show, status: :ok, location: @expense }
-      else
-        format.html { render :edit }
-        format.json { render json: @expense.errors, status: :unprocessable_entity }
-      end
-    end
+    @expense.update(expense_params)
+    respond_with_save(@expense)
+  
   end
 
   # DELETE /expenses/1
   # DELETE /expenses/1.json
   def destroy
     @expense.destroy
-    respond_to do |format|
-      format.html { redirect_to expenses_url, notice: 'Expense was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    respond_to_destroy(@expense)
+    # respond_to do |format|
+    #   format.html { redirect_to expenses_url, notice: 'Expense was successfully destroyed.' }
+    #   format.json { head :no_content }
+    # end
   end
 
   private

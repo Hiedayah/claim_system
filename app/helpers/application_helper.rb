@@ -20,10 +20,10 @@ def url_button(show: {}, edit: {}, destroy: {}, dropdown: true, confirm: true)
 		buttons += "<li>#{link_to "Show", show[:url]}</li>"
 		end
 		if edit.any?
-			buttons += "<li>#{link_to "Edit", edit[:url]}</li>"
+			buttons += "<li>#{link_to "Edit", edit[:url], :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}</li>"
 		end 
 		if destroy.any?
-			buttons += "<li>#{link_to "Delete", destroy[:url], method: :delete, confirm: "Are you sure to delete?"}</li>"
+			buttons += "<li>#{link_to "Delete", destroy[:url], method: :delete, confirm: "Are you sure to delete?", remote: true}</li>"
 		end
 
 		buttons += "</ul></div>"

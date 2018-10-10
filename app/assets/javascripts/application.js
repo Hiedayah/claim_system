@@ -21,4 +21,29 @@
 
 $(document).ready(function(){
 	$('.datepicker').datepicker();
+
+	cancel_button();
+	approve_button();
+	reject_button();
 })
+
+function cancel_button(){
+	$('.cancel-btn').click(function(){
+		$('.form-response form').addClass('hide');
+		$('.button-action').removeClass('hide');
+	})
+}
+function approve_button(){
+	$('.approve-btn').click(function(){
+		$('.approve-form').removeClass('hide');
+		$('.button-action').addClass('hide');
+	})
+}
+
+function reject_button(){
+	$('.reject-btn').click(function(){
+		$('.reject-form').removeClass('hide');
+		$('.button-action').addClass('hide');
+	})
+}
+

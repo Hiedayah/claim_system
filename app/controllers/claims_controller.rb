@@ -1,12 +1,12 @@
 class ClaimsController < ApplicationController
-  before_action :set_claim, except: [:index]
+  before_action :set_claim, except: [:index, :new]
   respond_to :html, :json
   # GET /claims
   # GET /claims.json
   def index
     #@claims = Claim.all
      if current_staff.admin?
-        @claims = Claim.joins(:staff).where(staffs: {company: params[:section]}).where.not(aasm_state: "submitted")
+        @claims = Claim.joins(:staff).where(staffs: {company: params[:section]}).where.not(aasm_state: "draft")
      else
         @claims = current_staff.claims
      end
@@ -75,14 +75,20 @@ def print_claim
     end
 end
 
-['submit', 'approve','verify'].each do |method|
+['submit', 'approve','verify', 'return_by_verifier', 'return_by_approver'].each do |method|
   define_method "#{method}" do
+    save_claim if params[:claim].present?
     if @claim.send("#{method}!")
-      redirect_to @claim, notice: "#{method}!"
+      redirect_to @claim, notice: "Claim has been #{method.humanize}!"
     else
       redirect_to @claim, alert: "Failed to #{method}!"
     end
   end
+end
+
+def save_claim
+  @claim.assign_attributes(claim_params)
+  @claim.save
 end
 
   # DELETE /claims/1
@@ -103,6 +109,8 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def claim_params
-      params.require(:claim).permit(:date, :status, :verifier_id, :approver_id, :staff_id, :aasm_state)
+      params.require(:claim).permit(
+        :date, :status, :verifier_id, :approver_id, :staff_id, :aasm_state,
+        justification_attributes: [:id, :approver_message, :staff_message, :verifier_message])
     end
 end

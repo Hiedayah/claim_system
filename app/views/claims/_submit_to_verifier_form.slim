@@ -1,0 +1,5 @@
+= content_for(:action_title) do |content|
+	h5 Submit Claim 
+= content_for(:action_body) do |content|
+	.form-response
+		= link_to "Submit", [:submit, @claim], confirm: "Are you sure to submit?", method: :put, class: 'btn btn-success'

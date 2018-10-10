@@ -1,0 +1,16 @@
+= content_for(:action_title) do |content|
+	h5 Approve Claim 
+= content_for(:action_body) do |content|
+	.button-action
+		=link_to "Approve", [:approve, @claim], method: :put, class: 'btn btn-success'
+		button.reject-btn.btn.btn-danger[type="button" style="margin-left:10px"] Reject
+	.form-response
+		= simple_form_for [:return_by_approver, @claim], method: :put, html:{class: 'reject-form hide'} do |f|
+			- @claim.build_justification unless @claim.justification
+			.form-inputs
+				= f.simple_fields_for :justification do |m|
+					= m.input :approver_message, label: 'Message'
+			.form-actions style="padding-top:40px"
+				= f.button :submit, 'Submit', data: {confirm: 'Are you sure to reject?'}, class: 'btn btn-success'
+				button.cancel-btn.btn.btn-default[type="button" style="margin-left:10px"] Cancel
+

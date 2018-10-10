@@ -1,24 +1,30 @@
+.panel.panel-default
+	.panel-heading
+		|Claim Dnsvault
+	.panel-body
+		table.table.table-default id="dttb-claims-dnsv" class="display" data-source="#{claims_url(section: "Dnsvault",format: 'json')}" 
+			thead
+			  tr
+			    th data-data="date"
+			      | Date
+			    th data-data="aasm_state"
+			      | Status
+			    th data-data="staff_id"
+			      | Staff
+			    th data-data="url" Action
 
-table.table.table-default id="dttb-claims-dnsv" class="display" data-source="#{claims_url(section: "Dnsvault",format: 'json')}" 
-	thead
-	  tr
-	    th data-data="date"
-	      | Date
-	    th data-data="aasm_state"
-	      | Status
-	    th data-data="staff_id"
-	      | Staff
-	    th data-data="url" Action
-
-
-table.table.table-default id="dttb-claims-localhost" class="display" data-source="#{claims_url(section: "Localhost",format: 'json')}" 
-	thead
-	  tr
-	    th data-data="date"
-	      | Date
-	    th data-data="aasm_state"
-	      | Status
-	    th data-data="staff_id"
-	      | Staff
-	    th data-data="url" Action
+.panel.panel-default
+	.panel-heading
+		|Claim Localhost
+	.panel-body
+		table.table.table-default id="dttb-claims-localhost" class="display" data-source="#{claims_url(section: "Localhost",format: 'json')}" 
+			thead
+			  tr
+			    th data-data="date"
+			      | Date
+			    th data-data="aasm_state"
+			      | Status
+			    th data-data="staff_id"
+			      | Staff
+			    th data-data="url" Action
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_05_071914) do
+ActiveRecord::Schema.define(version: 2018_10_09_081149) do
 
   create_table "claims", force: :cascade do |t|
     t.date "date"
@@ -31,6 +31,15 @@ ActiveRecord::Schema.define(version: 2018_10_05_071914) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "expense_value"
+  end
+
+  create_table "justifications", force: :cascade do |t|
+    t.string "approver_message"
+    t.string "verifier_message"
+    t.string "staff_message"
+    t.integer "claim_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "settings", force: :cascade do |t|

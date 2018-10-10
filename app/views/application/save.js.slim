@@ -1,0 +1,13 @@
+-if params[:id] == "multiple"
+	|$('.modal').modal('hide');
+	|$('#dttb').DataTable().ajax.reload(null, false);
+	-Rails.logger.debug("MASUK multiple")
+-else
+	-if object.errors.any?
+		|$("#modal").html("#{j render 'form'}");
+	-else
+		|$(".modal").modal('hide');
+		|$("table[id^=dttb").DataTable().ajax.reload(null, false);
+		- Rails.logger.debug("MASUK BAWAH")
+
+/= toast_now

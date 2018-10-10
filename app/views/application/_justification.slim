@@ -1,0 +1,17 @@
+.panel.panel-warning
+	.panel-heading
+		.panel-title Message
+	.panel-body
+		- justification = @justification_parent_object.justification
+		= show_for justification do |f|
+			-justification.sorted_justification.each do |msg|
+				- if justification.send(msg[1]).present?
+					= f.attributes msg[1]
+		/table.table.table-default
+			tr
+				- if justification.verifier_message
+					th.col-md-2 Verifier Message
+					td = justification.verifier_message
+				- if justification.approver_message
+					th Approver Message
+					td = justification.approver_message

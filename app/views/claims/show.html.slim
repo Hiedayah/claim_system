@@ -1,17 +1,18 @@
 p#notice = notice
-
-p
-  strong Date:
-  = @claim.date
-p
-  strong Staff:
-  = @claim.staff.name
-p
-  strong Aasm state:
-  = @claim.aasm_state
-
-
-= link_to 'New Expense', new_expense_path(claim_id: @claim.id) , class: "btn btn-info", :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'
+.btn-print style="text-align:right"
+  = link_to "Print",print_claim_claim_path(@claim, format: 'pdf'), target: '_blank', class: "btn btn-info"
+br
+.panel.panel-default
+  .panel-body
+    p
+      strong Date:
+      = @claim.date
+    p
+      strong Staff:
+      = @claim.staff.name.humanize
+    p
+      strong Status:
+      = @claim.aasm_state.humanize
 
 
 div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
@@ -20,24 +21,42 @@ div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalL
 
 br
 br
-table.table.table-default id="dttb-expenses" class="display" data-source="#{expenses_url(claim_id: @claim.id, format: 'json')}"
-  thead
-    tr
-      th data-data="expense_date"
-        | Expense Date
-      th data-data="description"
-        | Description
-      th data-data="expense_type"
-        | Expense type
-      th data-data="price"
-        | Price
-      th data-data="file"
-        | File
+.panel.panel-success
+  .panel-heading
+    .panel-title style="#{"float:left" if policy(@claim).submit?}"  
+      |Expenses
+    - if policy(@claim).submit?
+      .add-expense style="text-align:right"
+          = link_to new_expense_path(claim_id: @claim.id) , class: "btn btn-info", :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window' do
+            = fa_icon 'plus'
+            |&nbsp;Add Expense
+
+  .panel-body
+    table.table.table-default id="dttb-expenses" class="display" data-source="#{expenses_url(claim_id: @claim.id, format: 'json')}"
+      thead
+        tr
+          th data-data="expense_date"
+            | Expense Date
+          th data-data="description"
+            | Description
+          th data-data="expense_type"
+            | Expense type
+          th data-data="price"
+            | Price
+          th data-data="file"
+            | File
+          th data-data="url" Action
+- @justification_parent_object = @claim
+= render 'justification' if @claim.justification && @claim.justification.any_msg?
+= render 'action'
+- if content_for(:action_body)
+  .panel.panel-default
+    .panel-body
+      == yield(:action_body)
 
 
-= link_to "Print",print_claim_claim_path(@claim, format: 'pdf'), target: '_blank', class: "btn btn-info"
 br
 br
-= link_to 'Edit', edit_claim_path(@claim)
-=" | "
-= link_to 'Back', claims_path
+/= link_to 'Edit', edit_claim_path(@claim)
+/=" | "
+/= link_to 'Back', claims_path
