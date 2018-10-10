@@ -1,5 +1,5 @@
 class ClaimsController < ApplicationController
-  before_action :set_claim, except: [:index, :new]
+  before_action :set_claim, except: [:index, :new, :create]
   respond_to :html, :json
   # GET /claims
   # GET /claims.json
@@ -29,6 +29,10 @@ class ClaimsController < ApplicationController
   # GET /claims/new
   def new
     @claim = Claim.new
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /claims/1/edit

@@ -1,13 +1,25 @@
-= simple_form_for(@claim) do |f|
-  = f.error_notification
-  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+.modal-dialog
+  .modal-content
+    = simple_form_for(@claim, html:{remote: true}) do |f|
+      .modal-header
+        button.close[type="button" data-dismiss="modal" aria-hidden="true"]
+          | ×
+        h5#myModalLabel
+          = params[:action].humanize + " Claim"
+      .modal-body
 
-  .form-inputs
-    = f.input :date
-    = f.input :verifier_id
-    = f.input :approver_id
-    = f.input :staff_id
-    = f.input :aasm_state
+          = f.error_notification
+          = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
-  .form-actions
-    = f.button :submit
+          .row
+           .col-md-12
+            = f.input :date, as: :datepicker
+            = f.association :verifier, label_method: "email"
+            = f.association :approver, label_method: "email"
+            = f.input :staff_id, input_html: {value: current_staff.id}, as: :hidden
+
+      .modal-footer
+        button.btn[data-dismiss="modal" aria-hidden="true"]
+         | Close
+        =f.submit "Create Claim", class: 'btn btn-success'
+

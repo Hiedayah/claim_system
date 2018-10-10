@@ -1,12 +1,12 @@
 .panel.panel-default
 	.panel-heading
-		.panel-title
+		.panel-title style="float:left"
 			|List of Claim
 
-			.claim_btn style="float:right"
-				= link_to new_claim_path, class: "btn-link" do
-					= fa_icon 'plus'
-					|&nbsp;Claim
+		.claim_btn style="text-align:right"
+			= link_to new_claim_path, class: "btn btn-info", :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-claim' do
+			        = fa_icon 'plus'
+			        |&nbsp;New Claim
 	.panel-body
 		table.table.table-default id="dttb-claims-localhost" class="display" data-source="#{claims_url(format: 'json')}" 
 			thead
@@ -17,3 +17,4 @@
 			      | Status
 			    th data-data="url" Action
 
+div id="modal-claim" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"

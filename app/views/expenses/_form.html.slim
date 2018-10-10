@@ -13,7 +13,7 @@
           /= f.object.errors.inspect
           .row
             .col-md-12
-              = f.input :expense_date, as: :datepicker
+              = f.input :expense_date, input_html:{autocomplete: "off"}, as: :datepicker
               = f.input :description
               = f.input :expense_type
               = f.input :expense_value

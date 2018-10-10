@@ -2,14 +2,16 @@ p#notice = notice
 .btn-print style="text-align:right"
   = link_to "Print",print_claim_claim_path(@claim, format: 'pdf'), target: '_blank', class: "btn btn-info"
 br
-.panel.panel-default
-  .panel-body
+.panel.panel-danger
+  .panel-heading
     p
       strong Date:
       = @claim.date
+  .panel-heading
     p
       strong Staff:
-      = @claim.staff.name.humanize
+      = @claim.staff.name
+  .panel-heading
     p
       strong Status:
       = @claim.aasm_state.humanize
