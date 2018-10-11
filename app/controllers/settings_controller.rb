@@ -4,7 +4,9 @@ class SettingsController < ApplicationController
   # GET /settings
   # GET /settings.json
   def index
-    @settings = Setting.all
+      @settings = Setting.all
+    
+      #authorize @settings
   end
 
   # GET /settings/1
@@ -19,6 +21,10 @@ class SettingsController < ApplicationController
 
   # GET /settings/1/edit
   def edit
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # POST /settings

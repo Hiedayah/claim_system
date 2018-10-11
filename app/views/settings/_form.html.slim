@@ -1,10 +1,24 @@
-= simple_form_for(@setting) do |f|
-  = f.error_notification
-  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+.modal-dialog
+  .modal-content
+    = simple_form_for(@setting, html:{remote: true}) do |f|
+      .modal-header
+        button.close[type="button" data-dismiss="modal" aria-hidden="true"]
+          | ×
+        h5#myModalLabel
+          = params[:action].humanize + " Setting"
+      .modal-body
+      
+          = f.error_notification
+          = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+          /= f.object.errors.inspect
+          .row
+            .col-md-12
+              = f.input :description, input_html: {readonly: true}
+              = f.input :value, as: :text
+      
+            
+      .modal-footer
+        button.btn[data-dismiss="modal" aria-hidden="true"]
+          | Close
+        = f.submit "Save Changes", class: 'btn btn-success'
 
-  .form-inputs
-    = f.input :description
-    = f.input :value
-
-  .form-actions
-    = f.button :submit
