@@ -16,6 +16,10 @@ body
     - if alert
       p.alert.alert-danger= alert
     = yield
+
+  div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  
+  footer.container-fluid.text-center style="color:white"
+
   footer.container-fluid.text-center style="color:white"
     p
       | Localhost SDN BHD (#{Time.now.strftime("%d-%M-%Y %H:%M")})

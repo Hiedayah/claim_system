@@ -6,7 +6,7 @@
 		.claim_btn style="text-align:right"
 			= link_to new_claim_path, class: "btn btn-info", :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-claim' do
 			        = fa_icon 'plus'
-			        |&nbsp;New Claim
+			        |&nbsp;New Claim       
 	.panel-body
 		table.table.table-default id="dttb-claims-localhost" class="display" data-source="#{claims_url(format: 'json')}" 
 			thead

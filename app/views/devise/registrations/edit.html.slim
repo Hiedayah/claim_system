@@ -1,22 +1,78 @@
-h2
-  | Edit 
-  = resource_name.to_s.humanize
-= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-  = f.error_notification
-  .form-inputs
-    = f.input :email, required: true, autofocus: true
-    - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-      p
-        | Currently waiting confirmation for: 
-        = resource.unconfirmed_email
-    = f.input :password, hint: "leave it blank if you don't want to change it", required: false, input_html: { autocomplete: "new-password" }
-    = f.input :password_confirmation, required: false, input_html: { autocomplete: "new-password" }
-    = f.input :current_password, hint: "we need your current password to confirm your changes", required: true, input_html: { autocomplete: "current-password" }
-  .form-actions
-    = f.button :submit, "Update"
-h3
-  | Cancel my account
-p
-  | Unhappy? 
-  = link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete
-= link_to "Back", :back
+.modal-dialog
+  .modal-content
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+      .modal-header
+        button.close[type="button" data-dismiss="modal" aria-hidden="true"]
+          | ×
+        h5#myModalLabel
+          = params[:action].humanize + " Registration"
+      .modal-body
+
+          = f.error_notification
+          = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+      .form-inputs
+          .row
+            .col-md-12
+              = f.input :name, required: true, autofocus: true
+              <br>
+              <br>
+              = f.input :no_phone, required: true, autofocus: true
+              <br>
+              <br>
+              = f.input :company, required: true, autofocus: true
+              <br>
+              <br>
+              = f.input :email, required: true, autofocus: true
+              <br>
+              <br>
+              = f.input :bank_account, required: true, autofocus: true
+              <br>
+              <br>
+              = f.input :bank_name, required: true, autofocus: true
+              <br>
+              <br>
+              = f.input :password, required: false, input_html: { autocomplete: "new-password" }
+              <br>
+              <br>
+              = f.input :password_confirmation, required: false, input_html: { autocomplete: "new-password" }
+              <br>
+              <br>
+              = f.input :current_password, required: true, input_html: { autocomplete: "current-password" }
+     
+      .modal-footer
+        button.btn[data-dismiss="modal" aria-hidden="true"]
+         | Close
+        =f.submit "Update", class: 'btn btn-success'
+
+      <br>
+      <br>
+        
+/div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+
+/ h2
+/   | Edit 
+/   = resource_name.to_s.humanize
+/ = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+/   = f.error_notification
+/   .form-inputs
+/     = f.input :email, required: true, autofocus: true
+/     - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+/       p
+/         | Currently waiting confirmation for: 
+/         = resource.unconfirmed_email
+/     = f.input :password, hint: "leave it blank if you don't want to change it", required: false, input_html: { autocomplete: "new-password" }
+/     = f.input :password_confirmation, required: false, input_html: { autocomplete: "new-password" }
+/     = f.input :current_password, hint: "we need your current password to confirm your changes", required: true, input_html: { autocomplete: "current-password" }
+/     = f.input :bank_account, required: true, autofocus: true
+/     = f.input :bank_name, required: true, autofocus: true
+/   .form-actions
+/     = f.button :submit, "Update"
+/ h3
+/   | Cancel my account
+/ p
+/   | Unhappy? 
+/   = link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete
+/ = link_to "Back", :back
+
+

@@ -4,9 +4,10 @@ class Expense < ApplicationRecord
 	mount_uploader :file, FileUploader
 
 	def price
+		Rails.logger.debug("PRICE ---------->")
 		case expense_type
 			when "travel_distance"
-				(Setting.v('travel_price').to_f * expense_value).round(2)
+				(Setting.v('travel_price').to_f * expense_value).round(2) rescue 0.0
 			else
 				expense_value
 		end
