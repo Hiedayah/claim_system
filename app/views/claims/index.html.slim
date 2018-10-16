@@ -1,6 +1,9 @@
 
 -if current_staff.admin?
-	= render 'admin_view'
+	- unless params[:admin_claim]
+		= render 'admin_view'
+	-else
+		= render 'admin_claim'
 -else
 	= render 'staff_view'
 	

@@ -18,3 +18,4 @@ class ClaimPolicy < ApplicationPolicy
 	end
 
 end
+

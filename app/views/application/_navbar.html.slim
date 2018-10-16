@@ -9,10 +9,19 @@ nav.navbar style="background: #e4e9ed"
         = image_tag('localhost.png', width: '125px')
     #myNavbar.collapse.navbar-collapse
       ul.nav.navbar-nav
+
         li.active
           a[href="/claims"]
             | Claim
-      form.navbar-form.navbar-right[role="search"]
+        -if current_staff.admin?
+          li.active
+            a[href="/settings"]
+              | Setting
+          li.active
+            a[href="/claims?admin_claim=true"]
+              | Admin Claim
+
+      /form.navbar-form.navbar-right[role="search"]
         .form-group.input-group
           input.form-control[type="text" placeholder="Search.."]
           span.input-group-btn
