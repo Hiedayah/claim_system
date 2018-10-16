@@ -11,10 +11,10 @@
 
           = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html:{id: 'signupbox', class: 'form-horizontal'}) do |f|
             = f.error_notification
+            = resource.errors.full_messages
             = f.input :name, required: true, autofocus: true
             = f.input :no_phone, required: true, autofocus: true
             = f.input :company, required: true
-            = f.input :position, required: true, autofocus: true
             = f.input :email,required: true, autofocus: true, input_html: { autocomplete: "email" }
             = f.input :password, required: true, placeholder: "#{@minimum_password_length.to_s + ' characters minimum' if @minimum_password_length}", input_html: { autocomplete: "new-password" }
             = f.input :password_confirmation, required: true, input_html: { autocomplete: "new-password" }
