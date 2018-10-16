@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
 			if !current_staff.admin? && (request.original_url =~ %r{/settings})
 				!authorize(:application)
 			else
-				user_not_authorized(current_staff)
+				#redirect_to root_path
 			end
 	    end
 	    def configure_permitted_parameters
@@ -80,8 +80,6 @@ class ApplicationController < ActionController::Base
 
 	private
 		def user_not_authorized(current_staff)
-			flash[:alert] = "You are not allowed to view this page"
-			# redirect_to(request.referrer || root_path)
 		end
 	#protected
 		

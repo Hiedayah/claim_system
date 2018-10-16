@@ -1,7 +1,11 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 119918eaee811c13875e353edecf40bfab2239ac
 .btn-print style="text-align:right"
   = link_to "Print",print_claim_claim_path(@claim, format: 'pdf'), target: '_blank', class: "btn btn-info"
 br
-.panel.panel-danger
+.panel.panel-success
   .panel-heading
     p
       strong Date:
@@ -42,11 +46,14 @@ br
             | Description
           th data-data="expense_type"
             | Expense type
-          th data-data="price"
+          th data-data="expense_value"
             | Price
           th data-data="file"
             | File
           th data-data="url" Action
+          
+
+
 - @justification_parent_object = @claim
 = render 'justification' if @claim.justification && @claim.justification.any_msg?
 = render 'action'
