@@ -58,12 +58,16 @@ class ApplicationController < ActionController::Base
 	end
 
 
+	def switch_to_admin
+		current_staff.update_columns(admin: true)
+		redirect_to root_path
+	end
 
+	def switch_to_normal_user
+		current_staff.update_columns(admin: false)
+		redirect_to root_path
+	end
 
-
-	
-
-	
 	protected
 		def handle_authorization
 			#allow = true
