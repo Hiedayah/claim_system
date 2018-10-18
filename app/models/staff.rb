@@ -2,7 +2,9 @@ class Staff < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   # validates_numericality_of :no_phone, :message=>"Error", on: :update
-  validates_numericality_of :bank_account, :message=>"Error", on: :update
+
+  # validates_numericality_of :bank_account, :message=>"Error", on: :update
+
 
   enum company: [:Dnsvault,:Localhost]
 
