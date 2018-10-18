@@ -8,7 +8,7 @@
 			        = fa_icon 'plus'
 			        |&nbsp;New Claim
 	.panel-body
-		table.table.table-default id="dttb-claims-localhost" class="display" data-source="#{claims_url(format: 'json')}" 
+		table.table.table-default id="dttb-claims-localhost" class="display" data-source="#{claims_url(admin_claim: "true", format: 'json')}" 
 			thead
 			  tr
 			    th data-data="date"

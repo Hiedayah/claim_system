@@ -7,6 +7,19 @@ class Claim < ApplicationRecord
 	has_many :expenses, dependent: :destroy
 	has_one :justification
 
+	validate :check_claim_exist, on: :create
+
+	def check_claim_exist
+	staff = Staff.find(self.staff_id)
+	exist_data = staff.claims.where(created_at: Date.today.beginning_of_month.midnight..Date.today.end_of_month.end_of_day).exists?
+  
+	    if exist_data
+	    	errors.add(:base, message: "Claim for this month is already exist")
+	    else
+	    	return true
+	    end
+	end
+
 	accepts_nested_attributes_for :justification, reject_if: :all_blank, allow_destroy: true
 
 	aasm do

@@ -16,9 +16,7 @@ class DeviseCreateStaffs < ActiveRecord::Migration[5.2]
 
       #addtional attribute
       t.string :name
-      t.string :no_phone
       t.string :company
-      t.string :position
       t.string :bank_account
       t.string :bank_name
       t.boolean :admin

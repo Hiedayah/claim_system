@@ -31,5 +31,16 @@ def url_button(show: {}, edit: {}, destroy: {}, dropdown: true, confirm: true)
 	end
 
 	return buttons
+end
+
+def error_panel(object)
+	errors = "<div class='panel panel-danger'><div class='panel-heading'>Error: </div><div class='panel-body'><ul>"
+	object.errors.full_messages.each do |msg|
+		errors += "<li>#{msg[:message]}</li>"
+	end
+	errors += "</ul></div></div>"
+
+	return errors.html_safe
+	
 end			
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_09_081149) do
+ActiveRecord::Schema.define(version: 2018_10_18_063102) do
 
   create_table "claims", force: :cascade do |t|
     t.date "date"
@@ -56,11 +56,9 @@ ActiveRecord::Schema.define(version: 2018_10_09_081149) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string "name"
-    t.string "no_phone"
-    t.string "company"
-    t.string "position"
     t.string "bank_account"
     t.string "bank_name"
+    t.integer "company"
     t.boolean "admin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

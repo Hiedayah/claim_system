@@ -5,10 +5,15 @@ class ClaimsController < ApplicationController
   # GET /claims.json
   def index
     #@claims = Claim.all
-     if current_staff.admin?
-        @claims = Claim.joins(:staff).where(staffs: {company: params[:section]}).where.not(aasm_state: "draft")
-     else
+    Rails.logger.debug("ADMIN TRUE ==> #{params[:admin_claim]}")
+     if params[:admin_claim] == "true"
         @claims = current_staff.claims
+      else
+        if current_staff.admin?
+         @claims = Claim.joins(:staff).where(staffs: {company: params[:section]}).where.not(aasm_state: "draft")
+        else
+            @claims = current_staff.claims
+        end
      end
 
     # if current_staff.admin?
@@ -50,6 +55,7 @@ class ClaimsController < ApplicationController
         format.json { render :show, status: :created, location: @claim }
       else
         format.html { render :new }
+        format.js {render :save, locals: {object: @claim}}
         format.json { render json: @claim.errors, status: :unprocessable_entity }
       end
     end
@@ -117,4 +123,5 @@ end
         :date, :status, :verifier_id, :approver_id, :staff_id, :aasm_state,
         justification_attributes: [:id, :approver_message, :staff_message, :verifier_message])
     end
+
 end

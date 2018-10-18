@@ -17,5 +17,12 @@ class ClaimPolicy < ApplicationPolicy
 		end
 	end
 
-end
 
+		def claim_approved?
+			if record.aasm_state == "approved" || record.aasm_state == "verified" || record.aasm_state =="submitted"
+			true
+		else
+			false
+		end
+	end
+end
