@@ -14,7 +14,12 @@
 
           .row
            .col-md-12
-            = f.input :date, as: :datepicker
+            /= f.input :date, as: :datepicker
+            .form-group
+              .form-control-label.col-md-3
+                |Date
+              .col-md-9
+                |#{Date.today.strftime("%d %B %Y")} 
             = f.association :verifier, label_method: "email"
             = f.association :approver, label_method: "email"
             = f.input :staff_id, input_html: {value: current_staff.id}, as: :hidden

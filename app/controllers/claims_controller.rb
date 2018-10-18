@@ -11,9 +11,14 @@ class ClaimsController < ApplicationController
       else
         if current_staff.admin?
          @claims = Claim.joins(:staff).where(staffs: {company: params[:section]}).where.not(aasm_state: "draft")
+         @total_submitted_dnsv =  Claim.joins(:staff).where(staffs: {company: "Dnsvault"}).where.not(aasm_state: "draft").map{|x| x.expenses.sum(&:price)}.sum
+         @total_submitted_lh =  Claim.joins(:staff).where(staffs: {company: "Localhost"}).where.not(aasm_state: "draft").map{|x| x.expenses.sum(&:price)}.sum
+
         else
             @claims = current_staff.claims
         end
+
+
      end
 
     # if current_staff.admin?
