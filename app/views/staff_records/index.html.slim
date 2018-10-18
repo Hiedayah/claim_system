@@ -1,0 +1,17 @@
+.panel.panel-default
+	.panel-heading
+		.panel-title List of Staffs
+
+	.panel-body
+		table.table.table-default id="dttb-staffs" class="display" data-source="#{staff_records_url(format: 'json')}"
+		  thead
+		    tr
+		      th data-data="name"
+		        | Expense Date
+		      th data-data="email"
+		      th data-data="bank_account"
+		        | Description
+		      th data-data="bank_name"
+		        | Expense type
+		      th data-data="admin"
+		        | Role

@@ -1,5 +1,5 @@
 
--if current_staff.admin?
+-if current_staff.admin_view?
 	- unless params[:admin_claim]
 		= render 'admin_view'
 	-else

@@ -1,13 +1,17 @@
-h1 Listing settings
+.panel.panel-default
+	.panel-heading
+		.panel-title
+			|Settings
 
-table.table.table-default id="dttb-settings" class="display" data-source="#{settings_url(format: 'json')}"
-  thead
-    tr
-      th data-data="description"
-        | Description
-      th data-data="value"
-        | Value
-      th data-data="url" Action
+	.panel-body
+		table.table.table-default id="dttb-settings" class="display" data-source="#{settings_url(format: 'json')}"
+		  thead
+		    tr
+		      th data-data="description"
+		        | Description
+		      th data-data="value"
+		        | Value
+		      th data-data="url" Action
 
   
 /= link_to 'New Setting', new_setting_path

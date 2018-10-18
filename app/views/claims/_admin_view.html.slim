@@ -1,9 +1,7 @@
 .panel.panel-default
 	.panel-heading
-		.panel-title style="float:left"
-			|Claim Dnsvault 
-		.total style="text-align:right"
-			|Total: #{@total_submitted_dnsv} 
+		.panel-title
+			|Claim Dnsvault
 	.panel-body
 		table.table.table-default id="dttb-claims-dnsv" class="display" data-source="#{claims_url(section: "Dnsvault",format: 'json')}" 
 			thead
@@ -17,13 +15,13 @@
 			    th data-data="total_claim"
 			      | Total
 			    th data-data="url" Action
+	.panel-footer style="text-align:right"
+    	h5.total_dnsv Total RM #{number_with_delimiter "%.2f" % @total_submitted_dnsv}
 
 .panel.panel-default
 	.panel-heading
-		.panel-title style="float:left"
+		.panel-title
 			|Claim Localhost 
-		.total style="text-align:right"
-			|Total: #{@total_submitted_lh}
 	.panel-body
 		table.table.table-default id="dttb-claims-localhost" class="display" data-source="#{claims_url(section: "Localhost",format: 'json')}" 
 			thead
@@ -37,5 +35,8 @@
 			    th data-data="total_claim"
 			      | Total
 			    th data-data="url" Action
+	.panel-footer style="text-align:right"
+    	h5.total_lh Total RM #{number_with_delimiter "%.2f" % @total_submitted_lh}
+			
 
 

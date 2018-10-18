@@ -6,10 +6,8 @@ class ClaimsController < ApplicationController
   def index
     #@claims = Claim.all
     Rails.logger.debug("ADMIN TRUE ==> #{params[:admin_claim]}")
-     if params[:admin_claim] == "true"
-        @claims = current_staff.claims
-      else
-        if current_staff.admin?
+
+        if current_staff.admin_view?
          @claims = Claim.joins(:staff).where(staffs: {company: params[:section]}).where.not(aasm_state: "draft")
          @total_submitted_dnsv =  Claim.joins(:staff).where(staffs: {company: "Dnsvault"}).where.not(aasm_state: "draft").map{|x| x.expenses.sum(&:price)}.sum
          @total_submitted_lh =  Claim.joins(:staff).where(staffs: {company: "Localhost"}).where.not(aasm_state: "draft").map{|x| x.expenses.sum(&:price)}.sum
@@ -18,8 +16,6 @@ class ClaimsController < ApplicationController
             @claims = current_staff.claims
         end
 
-
-     end
 
     # if current_staff.admin?
     #   @claims_localhost = Claim.joins(:staff).where(staffs: {company: 'Localhost'})
@@ -47,6 +43,10 @@ class ClaimsController < ApplicationController
 
   # GET /claims/1/edit
   def edit
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # POST /claims

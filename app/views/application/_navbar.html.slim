@@ -10,14 +10,16 @@ nav.navbar style="background: #e4e9ed"
     #myNavbar.collapse.navbar-collapse
       ul.nav.navbar-nav
 
-        li.active
+        li
           a[href="/claims"]
             | Claim
-        -if current_staff.admin?
-          li.active
+        -if current_staff.admin_view?
+          li
             a[href="/settings"]
               | Setting
-          li.active
+          li
+            = link_to "Staff", staff_records_path
+          /li.active
             a[href="/claims?admin_claim=true"]
               | Admin Claim
 
@@ -30,15 +32,28 @@ nav.navbar style="background: #e4e9ed"
 
       ul.nav.navbar-nav.navbar-right
         - if staff_signed_in?
-          li
-            = link_to destroy_staff_session_path, method: :delete do
-              span.glyphicon.glyphicon-user
-              |&nbsp;
-              = "Logout " + "(#{current_staff.email})"
-
-      ul.nav.navbar-nav.navbar-right
-        li.active
-          a[href="staffs/edit"]
-            | Edit Profile
-
+          li.dropdown
+            a.dropdown-toggle data-toggle="dropdown" href="#"
+              = current_staff.email
+              span.caret
+              ul.dropdown-menu
+                li
+                  = link_to edit_staff_registration_path do
+                    span.glyphicon.glyphicon-pencil
+                    |&nbsp;Edit Profile
+                li
+                  - if current_staff.admin? && !current_staff.admin_view?
+                    = link_to switch_to_admin_path do
+                      = fa_icon('toggle-off')
+                      |&nbsp; Switch To Admin 
+                  -elsif current_staff.admin? && current_staff.admin_view?
+                    = link_to switch_to_normal_user_path
+                      = fa_icon('toggle-on')
+                      |&nbsp;Switch To User
+                li
+                  = link_to destroy_staff_session_path, method: :delete do
+                    span.glyphicon.glyphicon-user
+                    |&nbsp;
+                    = "Logout "
+              
             

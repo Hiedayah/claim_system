@@ -59,19 +59,23 @@ class ApplicationController < ActionController::Base
 
 
 	def switch_to_admin
-		current_staff.update_columns(admin: true)
-		redirect_to root_path
+		current_staff.update_columns(admin_view: true)
+		redirect_to(request.referrer || root_path)
 	end
 
 	def switch_to_normal_user
-		current_staff.update_columns(admin: false)
-		redirect_to root_path
+		current_staff.update_columns(admin_view: false)
+    if current_staff.admin_view? && current_staff.admin? && (request.original_url =~ %r{/settings /staff_records})
+		  redirect_to(request.referrer || root_path)
+    else
+      redirect_to root_path
+    end
 	end
 
 	protected
 		def handle_authorization
 			#allow = true
-			if !current_staff.admin? && (request.original_url =~ %r{/settings})
+			if !current_staff.admin_view? && (request.original_url =~ %r{/settings /staff_records})
 				!authorize(:application)
 			else
 				#redirect_to root_path

@@ -47,7 +47,11 @@ br
             | Price
           th data-data="file"
             | File
-          th data-data="url" Action
+          - if (current_staff.id == @claim.staff_id) && policy(@claim).submit?
+            th data-data="url" Action
+  .panel-footer style="text-align:right"
+    h4 Total RM #{number_with_delimiter "%.2f" % @claim.expenses.sum(&:price)}
+
           
 
 

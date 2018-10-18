@@ -14,8 +14,9 @@
             .col-md-12
               = f.input :expense_date, input_html:{autocomplete: "off"}, as: :datepicker
               = f.input :description
-              = f.input :expense_type
-              = f.input :expense_value
+              = f.input :expense_type, input_html:{class: 'exp_type'}
+              = f.input :expense_value, input_html:{class: 'exp_val'}
+              .exp_type_noti.col-md-12 style="text-align:right" #{"Kilometre" if f.object.expense_type && f.object.expense_type == "travel_distance"}
               = f.input :claim_id, as: :hidden
               = f.input :file
             /= f.input :claim_id
@@ -24,3 +25,14 @@
         button.btn[data-dismiss="modal" aria-hidden="true"]
           | Close
         = f.submit "Save Changes", class: 'btn btn-success'
+
+javascript:
+  $('.exp_type').change(function(){
+    var type = $(this).val();
+    if(type == "travel_distance"){
+      $(".exp_type_noti").html("Kilometre")
+    }
+    else{
+      $(".exp_type_noti").html("")
+    }
+  })
