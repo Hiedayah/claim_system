@@ -2,7 +2,7 @@
 	h5 Verify Claim 
 = content_for(:action_body) do |content|
 	.button-action
-		=link_to "Verify", [:verify, @claim], method: :put, class: 'btn btn-success'
+		=link_to "Approve", [:verify, @claim], method: :put, class: 'btn btn-success'
 		button.reject-btn.btn.btn-danger[type="button" style="margin-left:10px"] Reject
 	.form-response
 		= simple_form_for [:return_by_verifier, @claim], method: :put, html:{class: 'reject-form hide'} do |f|
