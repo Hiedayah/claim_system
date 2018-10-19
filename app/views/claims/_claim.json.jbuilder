@@ -6,7 +6,7 @@ if current_staff.id == claim.staff_id && allowed_to?(:submit?, claim) && !curren
 json.url "#{url_button(show: {url: claim_path(id: claim.id)},
 					edit: {url: edit_claim_path(id: claim.id)},
 					destroy: {url: claim_path(id: claim.id)})}"
-elsif allowed_to?(:verify?, claim) || allowed_to?(:approve?, claim)
+elsif (allowed_to?(:verify?, claim) || allowed_to?(:approve?, claim)) && current_staff.admin_view?
 json.url link_to "Pending Approval", claim_path(claim), data:{remote: true, toggle: 'modal', target: '#modal-window'}
 else
 json.url "#{url_button(show: {url: claim_path(id: claim.id)})}"

@@ -54,7 +54,7 @@
                     td = expense.description
                     td = expense.expense_type.humanize
                     td = expense.price
-                    td file_link(expense)
+                    td = file_link(expense)
           .panel-footer style="text-align:right"
             h4.total_claim Total RM #{number_with_delimiter "%.2f" % @claim.expenses.sum(&:price)}
 
@@ -63,7 +63,7 @@
         - @justification_parent_object = @claim
         = render 'justification' if @claim.justification && @claim.justification.any_msg?
         = render 'action'
-        
+
         - if content_for(:action_body)
           .panel.panel-default
             .panel-body
