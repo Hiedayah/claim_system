@@ -6,6 +6,8 @@ if current_staff.id == claim.staff_id && allowed_to?(:claim_approved?, claim)
 json.url "#{url_button(show: {url: claim_path(id: claim.id)},
 					edit: {url: edit_claim_path(id: claim.id)},
 					destroy: {url: claim_path(id: claim.id)})}"
+elsif allowed_to?(:verify?, claim) || allowed_to?(:approve?, claim)
+json.url link_to "Pending Approval", claim_path(claim)
 else
 json.url "#{url_button(show: {url: claim_path(id: claim.id)})}"
 end
