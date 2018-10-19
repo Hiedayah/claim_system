@@ -32,7 +32,7 @@
 		.panel-title
 			|Claim Dnsvault
 	.panel-body
-		table.table.table-default id="dttb-claims-dnsv" class="display" data-source="#{claims_url(month: (search.present? ? params[:search][:month].to_i : Date.today.month), year: (search.present? ? params[:search][:year].to_i : nil),section: "Dnsvault",format: 'json')}" 
+		table.table.table-default id="dttb-claims-dnsv" class="display" data-source="#{claims_url(month: (search.present? ? params[:search][:month].to_i : nil), year: (search.present? ? params[:search][:year].to_i : nil),section: "Dnsvault",format: 'json')}" 
 			thead
 			  tr
 			    th data-data="date"
@@ -53,7 +53,7 @@
 		.panel-title
 			|Claim Localhost 
 	.panel-body
-		table.table.table-default id="dttb-claims-localhost" class="display" data-source="#{claims_url(month: (search.present? ? params[:search][:month].to_i : Date.today.month), year: (search.present? ? params[:search][:year].to_i : nil),section: "Localhost",format: 'json')}" 
+		table.table.table-default id="dttb-claims-localhost" class="display" data-source="#{claims_url(month: (search.present? ? params[:search][:month].to_i : nil), year: (search.present? ? params[:search][:year].to_i : nil),section: "Localhost",format: 'json')}" 
 			thead
 			  tr
 			    th data-data="date"
@@ -67,5 +67,4 @@
 			    th data-data="url" Action
 	.panel-footer style="text-align:right"
     	h5.total_lh Total RM #{number_with_delimiter "%.2f" % @total_submitted_lh}
-			
 
