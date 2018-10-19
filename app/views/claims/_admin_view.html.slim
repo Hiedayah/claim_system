@@ -1,9 +1,38 @@
+-search = params[:search]
+-@query_date = []
+-if search
+    -if search && params[:search][:month] && (params[:search][:month] != "0")
+    	-Rails.logger.debug("DIEEEE#{params[:search][:month]}")
+    	-@query_date.push("strftime('%m', claims.created_at) = '#{params[:search][:month]}'")
+     
+    -if search && params[:search][:year] && (params[:search][:year] != "")
+        -@query_date.push("strftime('%Y', claims.created_at) = '#{params[:search][:year]}'")
+/    = @query_date
+/    br
+/    = @query_date.join(' and ')
+/    br
+/    = Claim.joins(:staff).where(staffs: {company: "Dnsvault"}).where(@query_date.join(' and ')).where.not(aasm_state: "draft").inspect
+-  @total_submitted_dnsv = Claim.joins(:staff).where(staffs: {company: "Dnsvault"}).where(@query_date.join(' and ')).where.not(aasm_state: "draft").map{|x| x.expenses.sum(&:price)}.sum
+-  @total_submitted_lh = Claim.joins(:staff).where(staffs: {company: "Localhost"}).where(@query_date.join(' and ')).where.not(aasm_state: "draft").map{|x| x.expenses.sum(&:price)}.sum    
+.panel.panel-default
+	.panel-body
+		= simple_form_for :search, method: :get do |f|
+			.form-group
+				= f.label :month, class: 'form-label col-md-1'
+				.col-md-4
+					= f.select :month, options_for_select(Date::MONTHNAMES.each_with_index.collect{|m, i| [m, i]}, selected: search.present? ? params[:search][:month].to_i : nil), {},{class: 'form-control'}
+			.form-group
+				= f.label :year, class: 'form-label col-md-1'
+				.col-md-4
+					= f.select :year, options_for_select((Date.today.year-10...Date.today.year+1).collect{|b| [b, b]}, selected: search.present? ? params[:search][:year].to_i : nil), {include_blank: ["-", 0]},{class: 'form-control'}
+			= f.submit "Show Claims", class: 'btn btn-info'
+
 .panel.panel-default
 	.panel-heading
 		.panel-title
 			|Claim Dnsvault
 	.panel-body
-		table.table.table-default id="dttb-claims-dnsv" class="display" data-source="#{claims_url(section: "Dnsvault",format: 'json')}" 
+		table.table.table-default id="dttb-claims-dnsv" class="display" data-source="#{claims_url(month: (search.present? ? params[:search][:month].to_i : Date.today.month), year: (search.present? ? params[:search][:year].to_i : nil),section: "Dnsvault",format: 'json')}" 
 			thead
 			  tr
 			    th data-data="date"
@@ -15,6 +44,7 @@
 			    th data-data="total_claim"
 			      | Total
 			    th data-data="url" Action
+
 	.panel-footer style="text-align:right"
     	h5.total_dnsv Total RM #{number_with_delimiter "%.2f" % @total_submitted_dnsv}
 
@@ -23,7 +53,7 @@
 		.panel-title
 			|Claim Localhost 
 	.panel-body
-		table.table.table-default id="dttb-claims-localhost" class="display" data-source="#{claims_url(section: "Localhost",format: 'json')}" 
+		table.table.table-default id="dttb-claims-localhost" class="display" data-source="#{claims_url(month: (search.present? ? params[:search][:month].to_i : Date.today.month), year: (search.present? ? params[:search][:year].to_i : nil),section: "Localhost",format: 'json')}" 
 			thead
 			  tr
 			    th data-data="date"
@@ -38,5 +68,4 @@
 	.panel-footer style="text-align:right"
     	h5.total_lh Total RM #{number_with_delimiter "%.2f" % @total_submitted_lh}
 			
-
 

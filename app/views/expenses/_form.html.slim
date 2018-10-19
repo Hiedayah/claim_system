@@ -18,7 +18,7 @@
               = f.input :expense_value, input_html:{class: 'exp_val'}
               .exp_type_noti.col-md-12 style="text-align:right" #{"Kilometre" if f.object.expense_type && f.object.expense_type == "travel_distance"}
               = f.input :claim_id, as: :hidden
-              = f.input :file
+              = f.input :file, input_html: {accept: "image/*;capture=camera"}
             /= f.input :claim_id
             
       .modal-footer

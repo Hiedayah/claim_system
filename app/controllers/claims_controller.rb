@@ -4,25 +4,41 @@ class ClaimsController < ApplicationController
   # GET /claims
   # GET /claims.json
   def index
-    #@claims = Claim.all
-    Rails.logger.debug("ADMIN TRUE ==> #{params[:admin_claim]}")
+        Rails.logger.debug("ADMIN TRUE ==> #{params[:admin_claim]}")
+        query_array = []
 
         if current_staff.admin_view?
-         @claims = Claim.joins(:staff).where(staffs: {company: params[:section]}).where.not(aasm_state: "draft")
-         @total_submitted_dnsv =  Claim.joins(:staff).where(staffs: {company: "Dnsvault"}).where.not(aasm_state: "draft").map{|x| x.expenses.sum(&:price)}.sum
-         @total_submitted_lh =  Claim.joins(:staff).where(staffs: {company: "Localhost"}).where.not(aasm_state: "draft").map{|x| x.expenses.sum(&:price)}.sum
 
+          if params[:month] && params[:month] != "0"
+            query_array.push("strftime('%m', claims.created_at) = '#{params[:month]}'")
+          end
+          if params[:year] && params[:year] != "0"
+            query_array.push("strftime('%Y' , claims.created_at) = '#{params[:year]}'")
+          end
+          Rails.logger.debug("QUERY ARRAY#{query_array}")
+          @claims = Claim.joins(:staff).where(staffs: {company: params[:section]}).where.not(aasm_state: "draft").where(query_array.join(" and "))
+          query_date = []
+          if params[:search] && params[:search][:month] && (params[:search][:month] != "0")
+            Rails.logger.debug("DIEEEE#{params[:search][:month]}")
+            query_date.push("strftime('%m', claims.created_at) = '#{params[:search][:month]}'")
+          end
+          if params[:search] && params[:search][:year] && (params[:search][:month] != "")
+            query_date.push("strftime('%m', claims.created_at) = '#{params[:search][:year]}'")
+          end
+          @ww = []
+          #Rails.logger.debug("PUSHED #{params[:search][:month]}")
+          Rails.logger.debug("QUERY DATE ==> #{query_date}")
+          @blob_dnsv = Claim.joins(:staff).where(staffs: {company: "Dnsvault"}).where(query_date.join(" and ")).where.not(aasm_state: "draft")
+          Rails.logger.debug("QUERY @blob dnsv ==> #{@ww << @blob_dnsv.map{|x| x.expenses.sum(&:price)}.sum}")
+
+          @blob_lh = Claim.joins(:staff).where(staffs: {company: "Localhost"}).where(query_date.join(" and ")).where.not(aasm_state: "draft")
+          Rails.logger.debug("QUERY @blob lh ==> #{@blob_lh.map{|x| x.expenses.sum(&:price)}.sum}")
+          
+          #@total_submitted_dnsv =  @claims.map{|x| x.expenses.sum(&:price)}.sum
+          #@total_submitted_lh =  @claims.map{|x| x.expenses.sum(&:price)}.sum
         else
-            @claims = current_staff.claims
+            @claims = current_staff.claims.where(query_array.join(" and "))
         end
-
-
-    # if current_staff.admin?
-    #   @claims_localhost = Claim.joins(:staff).where(staffs: {company: 'Localhost'})
-    #   @claims_dnsv = Claim.joins(:staff).where(staffs: {company: 'Dnsvault'})
-    # else
-    #   @claims = Claim.where(staff_id: current_staff.id)
-    # end
 
     respond_with(@claims)
   end

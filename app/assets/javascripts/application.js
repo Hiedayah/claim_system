@@ -19,7 +19,7 @@
 //= require datatables
 //= require_tree .
 
-$(document).ready(function(){
+$(document).on("turbolinks:load", function(){
 	$('.datepicker').datepicker();
 
 	cancel_button();
