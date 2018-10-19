@@ -9,23 +9,41 @@ def url_button(show: {}, edit: {}, destroy: {}, dropdown: true, confirm: true)
 	if destroy.any?
 		"Hi destroy"
 	end
+  if current_staff.admin? && current_staff.admin_view?
 
-  if dropdown
-    buttons = ""
-    if show.any?
-    buttons += "<a href='#{show[:url]}'>#{fa_icon 'search-plus'}</a>"
-    buttons+= "<span style='padding-right:30px'></span>"
-    end
-    if edit.any?
-      buttons += "<a href='#{edit[:url]}' data-remote='true' data-target='#modal-window' data-toggle='modal'>#{fa_icon 'pencil'}</a>"
+    if dropdown
+        buttons = ""
+        if show.any?
+        buttons += "<a href='#{show[:url]}' data-remote='true' data-target='#modal-window' data-toggle='modal'>#{fa_icon 'search-plus'}</a>"
+        buttons+= "<span style='padding-right:30px'></span>"
+        end
+        if edit.any?
+          buttons += "<a href='#{edit[:url]}' data-remote='true' data-target='#modal-window' data-toggle='modal'>#{fa_icon 'pencil'}</a>"
+          buttons+= "<span style='padding-right:30px'></span>"
+        end 
+        if destroy.any?
+          buttons += "<a href='#{destroy[:url]}' data-remote='true' data-method='delete'>#{fa_icon 'trash'}</a>"
+        end
+
+        buttons += "</ul></div>"
+      end
+  else
+    if dropdown
+      buttons = ""
+      if show.any?
+      buttons += "<a href='#{show[:url]}'>#{fa_icon 'search-plus'}</a>"
       buttons+= "<span style='padding-right:30px'></span>"
-    end 
-    if destroy.any?
-      buttons += "<a href='#{destroy[:url]}' data-remote='true' data-method='delete'>#{fa_icon 'trash'}</a>"
+      end
+      if edit.any?
+        buttons += "<a href='#{edit[:url]}' data-remote='true' data-target='#modal-window' data-toggle='modal'>#{fa_icon 'pencil'}</a>"
+        buttons+= "<span style='padding-right:30px'></span>"
+      end 
+      if destroy.any?
+        buttons += "<a href='#{destroy[:url]}' data-remote='true' data-method='delete'>#{fa_icon 'trash'}</a>"
+      end
+
+      buttons += "</ul></div>"
     end
-
-    buttons += "</ul></div>"
-
   end
 
 	# if dropdown

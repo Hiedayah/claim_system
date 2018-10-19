@@ -17,25 +17,7 @@ class ClaimsController < ApplicationController
           end
           Rails.logger.debug("QUERY ARRAY#{query_array}")
           @claims = Claim.joins(:staff).where(staffs: {company: params[:section]}).where.not(aasm_state: "draft").where(query_array.join(" and "))
-          query_date = []
-          if params[:search] && params[:search][:month] && (params[:search][:month] != "0")
-            Rails.logger.debug("DIEEEE#{params[:search][:month]}")
-            query_date.push("strftime('%m', claims.created_at) = '#{params[:search][:month]}'")
-          end
-          if params[:search] && params[:search][:year] && (params[:search][:month] != "")
-            query_date.push("strftime('%m', claims.created_at) = '#{params[:search][:year]}'")
-          end
-          @ww = []
-          #Rails.logger.debug("PUSHED #{params[:search][:month]}")
-          Rails.logger.debug("QUERY DATE ==> #{query_date}")
-          @blob_dnsv = Claim.joins(:staff).where(staffs: {company: "Dnsvault"}).where(query_date.join(" and ")).where.not(aasm_state: "draft")
-          Rails.logger.debug("QUERY @blob dnsv ==> #{@ww << @blob_dnsv.map{|x| x.expenses.sum(&:price)}.sum}")
-
-          @blob_lh = Claim.joins(:staff).where(staffs: {company: "Localhost"}).where(query_date.join(" and ")).where.not(aasm_state: "draft")
-          Rails.logger.debug("QUERY @blob lh ==> #{@blob_lh.map{|x| x.expenses.sum(&:price)}.sum}")
-          
-          #@total_submitted_dnsv =  @claims.map{|x| x.expenses.sum(&:price)}.sum
-          #@total_submitted_lh =  @claims.map{|x| x.expenses.sum(&:price)}.sum
+         
         else
             @claims = current_staff.claims.where(query_array.join(" and "))
         end
@@ -46,6 +28,7 @@ class ClaimsController < ApplicationController
   # GET /claims/1
   # GET /claims/1.json
   def show
+    respond_with(@claim)
   end
 
   # GET /claims/new
@@ -112,9 +95,9 @@ end
     authorize! @claim, with: ClaimPolicy
     save_claim if params[:claim].present?
     if @claim.send("#{method}!")
-      redirect_to @claim, notice: "Claim has been #{method.humanize}!"
+      redirect_to request.referrer || @claim, notice: "Claim has been #{method.humanize}!"
     else
-      redirect_to @claim, alert: "Failed to #{method}!"
+      redirect_to request.referrer || @claim, alert: "Failed to #{method}!"
     end
   end
 end

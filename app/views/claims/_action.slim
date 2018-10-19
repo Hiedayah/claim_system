@@ -1,3 +1,3 @@
-= render 'submit_to_verifier_form' if allowed_to?(:submit?, @claim)
+= render 'submit_to_verifier_form' if allowed_to?(:submit?, @claim) && !current_staff.admin_view?
 = render 'verify_return_form' if allowed_to?(:verify?, @claim)
 = render 'approve_and_return_form' if allowed_to?(:approve?, @claim)
