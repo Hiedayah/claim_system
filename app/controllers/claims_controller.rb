@@ -85,7 +85,7 @@ def print_claim
     respond_to do |format|
       format.html { render layout: 'pdf' }
       format.pdf do
-        render pdf: "print_claim", template: 'claims/print_claim', layout: 'pdf', footer: { left: '[page] of [topage]'}   # Excluding ".pdf" extension.
+        render pdf: "print_claim", template: 'claims/print_claim', orientation: 'Landscape',viewport_size: 'TEXT', page_size: 'A4', layout: 'pdf', footer: { left: '[page] of [topage]'}   # Excluding ".pdf" extension.
       end
     end
 end

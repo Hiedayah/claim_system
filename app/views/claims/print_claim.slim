@@ -1,27 +1,56 @@
-p#notice = notice
+.row
+  .col-md-12
+    -if @claim.staff.company == 'Localhost'
+      = wicked_pdf_image_tag "http://www.localhost.my/_/rsrc/1297038463259/config/customLogo.gif?revision=1", width: "600px"
+    -else
+      = wicked_pdf_image_tag "http://www.dnsvault.net/themes/dnsvault/img/logo.svg", width: "600px"
+br
+br
+.row
+  .col-md-12
+    table.table.table
+      tr
+        th STAFF NAME
+        td = @claim.staff.name.upcase
+        th DATE
+        td = @claim.created_at.strftime("%d %B %Y")
+        
+        
+      tr
+        th COMPANY
+        td = @claim.staff.company_name
+        th MONTH
+        td = @claim.created_at.strftime("%B %Y")
+        
+        
 
+br
+br
 p
-  strong Date:
-  = @claim.date
-p
-  strong Staff:
-  = @claim.staff.name
-
-table.table.table-default 
-  thead
-    tr
-      th data-data="expense_date"
-        | Expense Date
-      th data-data="description"
-        | Description
-      th data-data="expense_type"
-        | Expense type
-      th data-data="price"
-        | Price
-  tbody
-    - @claim.expenses.each do |expense|
-      tr 
-        td =expense.expense_date
-        td =expense.description
-        td =expense.expense_type
-        td =expense.price
+  .panel.panel-default
+    .panel-heading
+      strong Expenses
+    table.table
+      thead
+        tr
+          th data-data="expense_date"
+            | Expense Date
+          th data-data="description"
+            | Description
+          th data-data="expense_type"
+            | Expense type
+          th data-data="price"
+            | Price (RM)
+      tbody
+        - @claim.expenses.each do |expense|
+          tr 
+            td =expense.expense_date
+            td =expense.description
+            td #{expense.expense_type.humanize} #{ "(#{expense.expense_value.to_i} KM)" if expense.expense_type == "travel_distance"}
+            td =number_with_delimiter "%.2f" % expense.price
+      tbody
+        tr
+          th colspan="3" Total Expenses
+          th RM #{number_with_delimiter "%.2f" % @claim.expenses.sum(&:price)}
+em
+  |Travel Distance price per KM = RM #{Setting.v('travel_price')}

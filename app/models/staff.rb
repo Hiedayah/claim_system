@@ -13,6 +13,16 @@ class Staff < ApplicationRecord
 
   has_many :claims, dependent: :destroy
 
+  def company_name
+    if company
+      if company == "Localhost"
+        "LOCALHOST SDN BHD"
+      else
+        "DNSVAULT SDN BHD"
+      end
+    end
+  end
+
   def self.approver_profile
   	user_email = Setting.v('approver')
   	if user_email

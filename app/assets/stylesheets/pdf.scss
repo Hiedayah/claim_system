@@ -1,2 +1,27 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+body {
+  font-family: 'Arial';
+  font-size: 45px;
+}
+.table-non-bordered,
+.table-non-bordered tr,
+.table-none-bordered td,
+.table-none-bordered th {
+  border: none !important;
+}
+table,
+td,
+th,
+tr {
+  border: none !important;
+}
+
+.table-bordered,
+.table-bordered tbody,
+.table-bordered td,
+.table-bordered th,
+.table-bordered tr {
+  border: 0.5px solid #e5e5e5 !important;
+}

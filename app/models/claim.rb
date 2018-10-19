@@ -20,6 +20,7 @@ class Claim < ApplicationRecord
 	    end
 	end
 
+
 	accepts_nested_attributes_for :justification, reject_if: :all_blank, allow_destroy: true
 
 	aasm do
