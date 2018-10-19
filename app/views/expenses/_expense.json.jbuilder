@@ -3,7 +3,7 @@ json.extract! expense, :id, :expense_date, :description, :expense_type, :expense
 json.expense_type expense.expense_type.humanize
 json.price expense.price
 json.file file_link(expense)
-if current_staff.id == expense.claim.staff_id && policy(expense.claim).submit?
+if current_staff.id == expense.claim.staff_id && allowed_to?(:submit?, @claim)
 json.url "#{url_button(edit: {url: edit_expense_path(id: expense.id)},
                     destroy: {url: expense_path(id: expense.id)})}"
 else

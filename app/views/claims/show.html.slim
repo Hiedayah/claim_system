@@ -25,9 +25,9 @@ br
 br
 .panel.panel-success
   .panel-heading
-    .panel-title style="#{"float:left" if policy(@claim).submit?}"  
+    .panel-title style="#{"float:left" if allowed_to?(:submit?, @claim)}"  
       |Expenses
-    - if policy(@claim).submit?
+    - if allowed_to?(:submit?, @claim)
       .add-expense style="text-align:right"
           = link_to new_expense_path(claim_id: @claim.id) , class: "btn btn-info", :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window' do
             = fa_icon 'plus'
@@ -47,10 +47,10 @@ br
             | Price
           th data-data="file"
             | File
-          - if (current_staff.id == @claim.staff_id) && policy(@claim).submit?
+          - if (current_staff.id == @claim.staff_id) && allowed_to?(:submit?, @claim)
             th data-data="url" Action
   .panel-footer style="text-align:right"
-    h4 Total RM #{number_with_delimiter "%.2f" % @claim.expenses.sum(&:price)}
+    h4.total_claim Total RM #{number_with_delimiter "%.2f" % @claim.expenses.sum(&:price)}
 
           
 

@@ -1,6 +1,7 @@
 class StaffRecordsController < ApplicationController
   before_action :get_staff, except: [:index]
   def index
+    authorize! with: StaffPolicy
     @staffs = Staff.all
     respond_with(@staffs)
   end

@@ -1,3 +1,3 @@
-= render 'submit_to_verifier_form' if policy(@claim).submit?
-= render 'verify_return_form' if policy(@claim).verify?
-= render 'approve_and_return_form' if policy(@claim).approve?
+= render 'submit_to_verifier_form' if allowed_to?(:submit?, @claim)
+= render 'verify_return_form' if allowed_to?(:verify?, @claim)
+= render 'approve_and_return_form' if allowed_to?(:approve?, @claim)

@@ -8,6 +8,9 @@
 	-else
 		|$(".modal").modal('hide');
 		|$("table[id^=dttb").DataTable().ajax.reload(null, false);
+		
 		- Rails.logger.debug("MASUK BAWAH")
-
+- Rails.logger.debug("CONTROLLER JS #{params[:controller]}")
+- if params[:controller] =~ /expenses/i
+	|$("h4.total_claim").html("Total RM #{number_with_delimiter "%.2f" % object.claim.expenses.sum(&:price)}");
 /= toast_now

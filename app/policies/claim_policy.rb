@@ -1,4 +1,8 @@
 class ClaimPolicy < ApplicationPolicy
+
+  def allow_update?
+    user == record.staff_id 
+  end
 	{
 		submit: [:staff],
 		verify: [:verifier],

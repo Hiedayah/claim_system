@@ -6,7 +6,7 @@ class SettingsController < ApplicationController
   def index
       @settings = Setting.all
     
-      #authorize @settings
+      authorize! with: SettingPolicy
   end
 
   # GET /settings/1

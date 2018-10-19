@@ -66,6 +66,7 @@ class ExpensesController < ApplicationController
   # PATCH/PUT /expenses/1
   # PATCH/PUT /expenses/1.json
   def update
+    allowed_to? :allow_update?, @expense.claim, with: ClaimPolicy
     @expense.update(expense_params)
     respond_with_save(@expense)
   
@@ -74,6 +75,7 @@ class ExpensesController < ApplicationController
   # DELETE /expenses/1
   # DELETE /expenses/1.json
   def destroy
+    allowed_to? :allow_update?, @expense.claim, with: ClaimPolicy
     @expense.destroy
     respond_to_destroy(@expense)
     # respond_to do |format|

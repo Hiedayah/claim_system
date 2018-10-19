@@ -1,15 +1,15 @@
 class SettingPolicy < ApplicationPolicy
 
 	def index?
-    	user.admin?
-  	end
+    user.admin? && user.admin_view? 
+  end
 
   def show?
-    false
+    index?
   end
 
   def create?
-    false
+    index?
   end
 
   def new?
@@ -17,15 +17,15 @@ class SettingPolicy < ApplicationPolicy
   end
 
   def update?
-    false
+    index?
   end
 
   def edit?
-    update?
+    index?
   end
 
   def destroy?
-    false
+    index?
   end
 
 end

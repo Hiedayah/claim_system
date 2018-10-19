@@ -43,6 +43,7 @@ class ClaimsController < ApplicationController
 
   # GET /claims/1/edit
   def edit
+    allowed_to? :allow_update?, @claim, with: ClaimPolicy
     respond_to do |format|
       format.html
       format.js
@@ -53,7 +54,6 @@ class ClaimsController < ApplicationController
   # POST /claims.json
   def create
     @claim = Claim.new(claim_params)
-
     respond_to do |format|
       if @claim.save
         format.html { redirect_to @claim, notice: 'Claim was successfully created.' }
@@ -69,6 +69,7 @@ class ClaimsController < ApplicationController
   # PATCH/PUT /claims/1
   # PATCH/PUT /claims/1.json
   def update
+    allowed_to? :allow_update?, @claim, with: ClaimPolicy
     respond_to do |format|
       if @claim.update(claim_params)
         format.html { redirect_to @claim, notice: 'Claim was successfully updated.' }
@@ -92,6 +93,7 @@ end
 
 ['submit', 'approve','verify', 'return_by_verifier', 'return_by_approver'].each do |method|
   define_method "#{method}" do
+    authorize! @claim, with: ClaimPolicy
     save_claim if params[:claim].present?
     if @claim.send("#{method}!")
       redirect_to @claim, notice: "Claim has been #{method.humanize}!"
@@ -109,6 +111,7 @@ end
   # DELETE /claims/1
   # DELETE /claims/1.json
   def destroy
+    allowed_to? :allow_update?, @claim, with: ClaimPolicy
     @claim.destroy
     respond_to do |format|
       format.html { redirect_to claims_url, notice: 'Claim was successfully destroyed.' }
