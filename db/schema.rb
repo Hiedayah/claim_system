@@ -56,9 +56,9 @@ ActiveRecord::Schema.define(version: 2018_10_18_110505) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string "name"
+    t.integer "company"
     t.string "bank_account"
     t.string "bank_name"
-    t.integer "company"
     t.boolean "admin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
