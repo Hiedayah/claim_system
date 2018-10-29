@@ -1,151 +1,144 @@
 - if current_staff.admin? && current_staff.admin_view?
-  .modal-dialog style="width: 90%"
+  .modal-dialog.modal-lg
     .modal-content
-      .modal-header
-        |Claim date: #{@claim.created_at.strftime("%d %B %Y")}
       .modal-body
+
         .btn-print style="text-align:right"
-          = link_to "Print",print_claim_claim_path(@claim, format: 'pdf'), target: '_blank', class: "btn btn-info"
-        br
-        .panel.panel-success
-          .panel-heading
-            p
-              strong Date:
-              = @claim.date
-          .panel-heading
-            p
-              strong Staff:
-              = @claim.staff.name
-          .panel-heading
-            p
-              strong Status:
-              = @claim.aasm_state.humanize
+          = link_to print_claim_claim_path(@claim, format: 'pdf'), target: '_blank', class: "btn btn-sm btn-float btn-info my-1" do
+            i class="material-icons" local_printshop
+          |&nbsp;&nbsp;
+          a class="close btn btn-float btn-light my-1 btn-sm" data-dismiss="modal" data-target="#modal" 
+            i class="material-icons" clear
+            
+        
+        p
+          strong Date:&nbsp;
+          = @claim.created_at.strftime("%d %B %Y")
+          
+        p
+          strong Staff:&nbsp;
+          = @claim.staff.name
+        p
+          strong Status:&nbsp;
+          = @claim.aasm_state.humanize
 
         br
         br
-        .panel.panel-success
-          .panel-heading
-            .panel-title style="#{"float:left" if allowed_to?(:submit?, @claim)}"  
-              |Expenses
-            - if allowed_to?(:submit?, @claim)
-              .add-expense style="text-align:right"
-                  = link_to new_expense_path(claim_id: @claim.id) , class: "btn btn-info", :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window' do
-                    = fa_icon 'plus'
-                    |&nbsp;Add Expense
-
-          .panel-body
-            table.table.table-default
-              thead
+        h5 Expenses
+        - if allowed_to?(:submit?, @claim)
+          .add-expense style="text-align:right"
+              = link_to new_expense_path(claim_id: @claim.id) , class: "btn btn-info", :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal' do
+                = fa_icon 'plus'
+                |&nbsp;Add Expense
+        .table-responsive
+          table.table.table-striped.table-bordered
+            thead
+              tr
+                th data-data="expense_date"
+                  | Expense Date
+                th data-data="description"
+                  | Description
+                th data-data="expense_type"
+                  | Expense type
+                th data-data="price"
+                  | Price
+                th data-data="file"
+                  | File
+            tbody
+              - @claim.expenses.each do |expense|
                 tr
-                  th data-data="expense_date"
-                    | Expense Date
-                  th data-data="description"
-                    | Description
-                  th data-data="expense_type"
-                    | Expense type
-                  th data-data="price"
-                    | Price
-                  th data-data="file"
-                    | File
-              tbody
-                - @claim.expenses.each do |expense|
-                  tr
-                    td = expense.expense_date
-                    td = expense.description
-                    td = expense.expense_type.humanize
-                    td = expense.price
-                    td = file_link(expense)
-          .panel-footer style="text-align:right"
-            h4.total_claim Total RM #{number_with_delimiter "%.2f" % @claim.expenses.sum(&:price)}
+                  td = expense.expense_date
+                  td = expense.description
+                  td = expense.expense_type.humanize
+                  td = expense.price
+                  td = file_link(expense)
+            tfooter
+              th colspan="4" style="text-align:right"
+                strong Total RM
+              th 
+                strong #{number_with_delimiter "%.2f" % @claim.expenses.sum(&:price)}
 
                   
 
-        - @justification_parent_object = @claim
-        = render 'justification' if @claim.justification && @claim.justification.any_msg?
+        -if @claim.justification && @claim.justification.any_msg?
+          .card.border-light.mb-3      
+            .card-header.bg-warning Justification
+            .card-body
+              = render 'justification', justification: @claim.justification
+
         = render 'action'
-
         - if content_for(:action_body)
-          .panel.panel-default
-            .panel-body
-              == yield(:action_body)
+            == yield(:action_body)
 
 
         br
-        br
-        
-
-      .modal-footer
-          button.btn.btn-default[data-dismiss="modal" aria-hidden="true"]
-           | Close
+      
+  css:
+    .hide{
+      display: none;
+    }
   javascript:
-    $('.cancel-btn').click(function(){
-      $('.form-response form').addClass('hide');
-      $('.button-action').removeClass('hide');
-    });
-    $('.approve-btn').click(function(){
-      $('.approve-form').removeClass('hide');
-      $('.button-action').addClass('hide');
-    });
-    $('.reject-btn').click(function(){
-      $('.reject-form').removeClass('hide');
-      $('.button-action').addClass('hide');
-    });
+      $('.cancel-btn').click(function(){
+        $('.form-response form').addClass('hide');
+        $('.button-action').removeClass('hide');
+      });
+      $('.approve-btn').click(function(){
+        $('.approve-form').removeClass('hide');
+        $('.button-action').addClass('hide');
+      });
+      $('.reject-btn').click(function(){
+        $('.reject-form').removeClass('hide');
+        $('.button-action').addClass('hide');
+      });
 -else
-  .btn-print style="text-align:right"
-    = link_to "Print",print_claim_claim_path(@claim, format: 'pdf'), target: '_blank', class: "btn btn-info"
-  br
-  .panel.panel-success
-    .panel-heading
+  .card.border-light.mb-3
+    .card-body
+      .btn-print style="text-align:right"
+        = link_to print_claim_claim_path(@claim, format: 'pdf'), target: '_blank', class: "btn btn-float btn-success my-1" do
+          i class="material-icons" local_printshop
       p
         strong Date:
-        = @claim.date
-    .panel-heading
+        |&nbsp; #{@claim.created_at.strftime("%d %B %Y")}
       p
         strong Staff:
         = @claim.staff.name
-    .panel-heading
       p
         strong Status:
         = @claim.aasm_state.humanize
 
-  br
-  br
-  .panel.panel-success
-    .panel-heading
-      .panel-title style="#{"float:left" if allowed_to?(:submit?, @claim)}"  
-        |Expenses
-      - if allowed_to?(:submit?, @claim)
-        .add-expense style="text-align:right"
-            = link_to new_expense_path(claim_id: @claim.id) , class: "btn btn-info", :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window' do
-              = fa_icon 'plus'
-              |&nbsp;Add Expense
 
-    .panel-body
-      table.table.table-default id="dttb-expenses" class="display" data-source="#{expenses_url(claim_id: @claim.id, format: 'json')}"
-        thead
-          tr
-            th data-data="expense_date"
-              | Expense Date
-            th data-data="description"
-              | Description
-            th data-data="expense_type"
-              | Expense type
-            th data-data="price"
-              | Price
-            th data-data="file"
-              | File
-            - if (current_staff.id == @claim.staff_id) && allowed_to?(:submit?, @claim)
-              th data-data="url" Action
-    .panel-footer style="text-align:right"
-      h4.total_claim Total RM #{number_with_delimiter "%.2f" % @claim.expenses.sum(&:price)}
+      p
+        - if allowed_to?(:submit?, @claim)
+          .add-expense style="text-align:right"
+              = link_to new_expense_path(claim_id: @claim.id) , class: "btn btn-info", :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal' do
+                i class="material-icons" add
+                |&nbsp;Add Expense
+      p
+        table.table.table-striped.table-bordered id="dttb-expenses" class="display" data-source="#{expenses_url(claim_id: @claim.id, format: 'json')}"
+          thead
+            tr
+              th data-data="expense_date"
+                | Expense Date
+              th data-data="description"
+                | Description
+              th data-data="expense_type"
+                | Expense type
+              th data-data="price"
+                | Price
+              th data-data="file"
+                | File
+              - if (current_staff.id == @claim.staff_id) && allowed_to?(:submit?, @claim)
+                th data-data="url" Action
+      -if @claim.justification && @claim.justification.any_msg?
+        .card.border-light.mb-3      
+          .card-header.bg-warning Justification
+          .card-body
+            = render 'justification', justification: @claim.justification
 
-            
+      = render 'action'
+      - if content_for(:action_body)
+          == yield(:action_body)
+    .card-footer style="text-align:right"
+        h4.total_claim Total RM #{number_with_delimiter "%.2f" % @claim.expenses.sum(&:price)}
 
 
-  - @justification_parent_object = @claim
-  = render 'justification' if @claim.justification && @claim.justification.any_msg?
-  = render 'action'
-  - if content_for(:action_body)
-    .panel.panel-default
-      .panel-body
-        == yield(:action_body)

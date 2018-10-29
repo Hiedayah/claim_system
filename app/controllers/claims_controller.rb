@@ -1,5 +1,5 @@
 class ClaimsController < ApplicationController
-  before_action :set_claim, except: [:index, :new, :create]
+  before_action :set_claim, except: [:index, :new, :create, :create_claim]
   respond_to :html, :json
   # GET /claims
   # GET /claims.json
@@ -37,6 +37,15 @@ class ClaimsController < ApplicationController
     respond_to do |format|
       format.html
       format.js
+    end
+  end
+
+  def create_claim
+    @claim = Claim.new(approver_id: Staff.find_by(email: Setting.v('approver')).id, staff_id: current_staff.id, verifier_id: Staff.find_by(email: Setting.v('verifier')).id)
+    if @claim.save
+        redirect_to claim_path(@claim), notice: "Claim was successfully created"
+    else
+        redirect_to request.referrer || root_path, notice: "Claim is already exist for this month"
     end
   end
 

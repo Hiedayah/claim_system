@@ -1,5 +1,6 @@
 Rails.logger.debug("MASUK JSON NIE")
 json.extract! expense, :id, :expense_date, :description, :expense_type, :expense_value, :file
+json.expense_date expense.expense_date.strftime("%d-%m-%Y")
 json.expense_type expense.expense_type.humanize
 json.price expense.price
 json.file file_link(expense)

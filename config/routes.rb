@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   resources :settings
   resources :expenses
   resources :claims do 
+    collection do
+      get 'create_claim'
+    end
   	member do 
   		get :print_claim
   		put :submit

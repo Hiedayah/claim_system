@@ -10,14 +10,14 @@ html
 
 body
   = render 'navbar'
-  div class="container"
+  div class="container-fluid" style="padding-top:10px"
     - if notice
       p.alert.alert-success= notice
     - if alert
       p.alert.alert-danger= alert
     = yield
 
-  div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  
+  #modal.modal.modal-fade aria-hidden="true" aria-labelledby="modal" role="dialog"
   footer.container-fluid.text-center style="color:white"
     p
       | Localhost SDN BHD (#{Time.now.strftime("%d-%M-%Y %H:%M")})

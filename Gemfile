@@ -11,7 +11,10 @@ gem 'devise'
 #help with powerful components to create your forms
 gem 'simple_form'
 #install bootstrap
-gem 'bootstrap-sass', '~> 3.3.7'
+gem 'bootstrap'
+gem 'material-sass'
+gem 'material_icons'
+gem 'flatpickr_rails'
 gem 'jquery-rails'
 gem 'cocoon'
 gem 'wicked_pdf'
@@ -20,6 +23,8 @@ gem 'slim-rails'
 gem "font-awesome-rails"
 gem 'bootstrap-datepicker-rails', :require => 'bootstrap-datepicker-rails',
                               :git => 'git://github.com/Nerian/bootstrap-datepicker-rails.git'
+gem 'rails-assets-sweetalert2', '~> 5.1.1', source: 'https://rails-assets.org'
+gem 'sweet-alert2-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.1'
 # Use sqlite3 as the database for Active Record

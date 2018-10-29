@@ -1,4 +1,4 @@
-.modal-dialog
+.modal-dialog.modal-lg
   .modal-content
     = simple_form_for(@expense, html:{remote: true}) do |f|
       .modal-header
@@ -11,28 +11,48 @@
           = f.error_notification
           = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
           .row
-            .col-md-12
-              = f.input :expense_date, input_html:{autocomplete: "off"}, as: :datepicker
-              = f.input :description
-              = f.input :expense_type, input_html:{class: 'exp_type'}
-              = f.input :expense_value, input_html:{class: 'exp_val'}
-              .exp_type_noti.col-md-12 style="text-align:right" #{"Kilometre" if f.object.expense_type && f.object.expense_type == "travel_distance"}
-              = f.input :claim_id, as: :hidden
-              = f.input :file, input_html: {accept: "image/*;capture=camera"}
-            /= f.input :claim_id
+              = f.input :expense_date, input_html:{autocomplete: "off", id: "flatpickr-input"}, wrapper_html: {class: 'col-sm-6'}, as: :datepicker
+              = f.input :description, wrapper_html: {class: 'col-sm-6'}
+          .row
+
+              = f.input :expense_type, input_html:{class: 'exp_type'}, wrapper_html: {class: 'col-sm-6'}
+              = f.input :expense_value, input_html:{class: 'exp_val'}, wrapper_html: {class: 'col-sm-6'}, as: :custom_groupaddon
+              /.exp_type_noti.col-md-12 style="text-align:right" #{"Kilometre" if f.object.expense_type && f.object.expense_type == "travel_distance"}
+          .row
+            .col-sm-6 
+              .file-in style="padding-left:20px"
+                  = f.input :file, input_html: {accept: "image/*;capture=camera"}, wrapper_html: {class: 'col-sm-8'}
+                  = f.input :claim_id, as: :hidden
+
+            
+            
+              
+              
             
       .modal-footer
         button.btn[data-dismiss="modal" aria-hidden="true"]
           | Close
         = f.submit "Save Changes", class: 'btn btn-success'
 
+- if @expense.expense_type == "travel_distance"
+  javascript:
+    $(".custom-addon").html('KM');
+-else
+  javascript:
+    $(".custom-addon").html('MYR');  
+
 javascript:
   $('.exp_type').change(function(){
     var type = $(this).val();
     if(type == "travel_distance"){
-      $(".exp_type_noti").html("Kilometre")
+      //$(".exp_type_noti").html("Kilometre")
+      $(".custom-addon").html('KM')
     }
     else{
-      $(".exp_type_noti").html("")
+      $(".custom-addon").html('MYR')
+      //$(".exp_type_noti").html("")
     }
-  })
+  });
+
+ 
+  $('#flatpickr-input').flatpickr();

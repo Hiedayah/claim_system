@@ -13,37 +13,44 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
-//= require jquery
-//= require bootstrap-sprockets
-//= require bootstrap-datepicker
+//= require jquery3
+//= require popper
+//= require bootstrap
+//= require material-sprockets
 //= require datatables
-//= require_tree .
+//= require flatpickr
+//= require sweetalert2
+//= require sweet-alert2-rails
 
-$(document).on("turbolinks:load", function(){
-	$('.datepicker').datepicker();
+$(document).ready(function(){
+  $('#flatpickr-input').flatpickr();
+});
 
-	cancel_button();
-	approve_button();
-	reject_button();
-})
+// $(document).on("turbolinks:load", function(){
+	
 
-function cancel_button(){
-	$('.cancel-btn').click(function(){
-		$('.form-response form').addClass('hide');
-		$('.button-action').removeClass('hide');
-	})
-}
-function approve_button(){
-	$('.approve-btn').click(function(){
-		$('.approve-form').removeClass('hide');
-		$('.button-action').addClass('hide');
-	})
-}
+// 	cancel_button();
+// 	approve_button();
+// 	reject_button();
+// })
 
-function reject_button(){
-	$('.reject-btn').click(function(){
-		$('.reject-form').removeClass('hide');
-		$('.button-action').addClass('hide');
-	})
-}
+// function cancel_button(){
+// 	$('.cancel-btn').click(function(){
+// 		$('.form-response form').addClass('hide');
+// 		$('.button-action').removeClass('hide');
+// 	})
+// }
+// function approve_button(){
+// 	$('.approve-btn').click(function(){
+// 		$('.approve-form').removeClass('hide');
+// 		$('.button-action').addClass('hide');
+// 	})
+// }
+
+// function reject_button(){
+// 	$('.reject-btn').click(function(){
+// 		$('.reject-form').removeClass('hide');
+// 		$('.button-action').addClass('hide');
+// 	})
+// }
 

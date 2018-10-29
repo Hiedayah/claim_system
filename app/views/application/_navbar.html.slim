@@ -1,10 +1,116 @@
-nav.navbar style="background: #e4e9ed"
+nav class="navbar sticky-top navbar-dark bg-primary navbar-expand-lg d-flex flex-row" style="background-color: #3fc380 !important;"
+  a.navbar-brand[href="#{root_path}"]
+    = image_tag('localhost.png', width: '140px')
+  button.navbar-toggler[type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"]
+    span.navbar-toggler-icon
+  #navbarNavDropdown.collapse.navbar-collapse
+    ul.navbar-nav 
+      li.nav-item
+        a.nav-link.active[href="#{claims_url}"]
+          | Claim
+          span.sr-only
+      -if current_staff.admin_view?
+          li.nav-item
+            a.nav-link.active href="#{staff_records_path}"
+              | Staff
+          li.nav-item
+            a.nav-link.active[href="#{settings_url}"]
+              | Setting
+          
+
+  #navbarNavDropdown.collapse.navbar-collapse.justify-content-end
+    ul.navbar-nav
+      li.nav-item
+        a.nav-link.active href=""
+          = current_staff.name
+          span.sr-only
+      li.nav-item.dropdown style="color: #1e824c !important"
+        a.nav-link.active.dropdown-toggle#navbarDropdown data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+          i class="material-icons" settings
+        .dropdown-menu.dropdown-menu-right style="font-size: 14px"
+          = link_to edit_staff_registration_path, class: 'dropdown-item' do
+              = fa_icon 'pencil'
+              |&nbsp;&nbsp;Edit Profile
+          - if current_staff.admin? && !current_staff.admin_view?
+              = link_to switch_to_admin_path, class: 'dropdown-item' do
+                      = fa_icon('toggle-off')
+                      |&nbsp; Switch To Admin 
+          -elsif current_staff.admin? && current_staff.admin_view?
+              = link_to switch_to_normal_user_path, class: 'dropdown-item'
+                      = fa_icon('toggle-on')
+                      |&nbsp;Switch To User
+          = link_to destroy_staff_session_path, method: :delete, class: 'dropdown-item' do
+                    = fa_icon('sign-out')
+                    |&nbsp;
+                    = "Logout "
+/nav class="green darken-1"
+  .nav-wrapper.container
+    a.button-collapse.sidenav-trigger.show-on-large data-target="slide-out" data-turbolinks="false" href="#" id="sidenav"
+      i class="material-icons right"
+    a class="brand-logo" href="/" id="logo-container"
+      = image_tag('localhost.png', width: '125px')
+    ul.right.nav-mobile
+      li
+        a[href="/claims"]
+          | Claim
+      -if current_staff.admin_view?
+          li
+            a[href="/settings"]
+              | Setting
+          li
+            = link_to "Staff", staff_records_path
+      li
+        a.dropdown-trigger[data-target="dropdown1"]
+          span
+            | Dropdown
+          i.material-icons.right
+            | arrow_drop_down
+        ul#dropdown1.dropdown-content[tabindex="0" style=""]
+          li[tabindex="0"]
+            a[href="#!"]
+              |  First
+          li[tabindex="0"]
+            a[href="#!"]
+              |  Second
+          li[tabindex="0"]
+            a[href="#!"]
+              |  Third
+          li[tabindex="0"]
+            a[href="#!"]
+              |  Fourth
+          /- if staff_signed_in?
+            li
+              a.dropdown-trigger data-target="#dropdown-1"
+                span = current_staff.email
+                i.material-icons.right
+              ul.dropdown-content#dropdown-1
+                li 
+                  = link_to edit_staff_registration_path do
+                    span.glyphicon.glyphicon-pencil
+                    |&nbsp;Edit Profile
+                li
+                  - if current_staff.admin? && !current_staff.admin_view?
+                    = link_to switch_to_admin_path do
+                      = fa_icon('toggle-off')
+                      |&nbsp; Switch To Admin 
+                  -elsif current_staff.admin? && current_staff.admin_view?
+                    = link_to switch_to_normal_user_path
+                      = fa_icon('toggle-on')
+                      |&nbsp;Switch To User
+                li
+                  = link_to destroy_staff_session_path, method: :delete do
+                    span.glyphicon.glyphicon-user
+                    |&nbsp;
+                    = "Logout "
+          /li.active
+            a[href="/claims?admin_claim=true"]
+              | Admin Claim
+
+/nav.navbar style="background: #e4e9ed"
   .container-fluid
     .navbar-header
       button.navbar-toggle[type="button" data-toggle="collapse" data-target="#myNavbar"]
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
+        = fa_icon('bars')
       a.navbar-brand[href="#" style="padding-top: 10px"] 
         = image_tag('localhost.png', width: '125px')
     #myNavbar.collapse.navbar-collapse

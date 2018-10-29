@@ -14,15 +14,15 @@ def url_button(show: {}, edit: {}, destroy: {}, dropdown: true, confirm: true)
     if dropdown
         buttons = ""
         if show.any?
-        buttons += "<a href='#{show[:url]}' data-remote='true' data-target='#modal-window' data-toggle='modal'>#{fa_icon 'search-plus'}</a>"
+        buttons += "<a href='#{show[:url]}' data-remote='true' class='text-success' data-target='#modal' data-toggle='modal'><i class='material-icons'>remove_red_eye</i></a>"
         buttons+= "<span style='padding-right:30px'></span>"
         end
         if edit.any?
-          buttons += "<a href='#{edit[:url]}' data-remote='true' data-target='#modal-window' data-toggle='modal'>#{fa_icon 'pencil'}</a>"
+          buttons += "<a href='#{edit[:url]}' data-remote='true' class='text-success' data-target='#modal' data-toggle='modal'><i class='material-icons'>create</i></a>"
           buttons+= "<span style='padding-right:30px'></span>"
         end 
         if destroy.any?
-          buttons += "<a href='#{destroy[:url]}' data-remote='true' data-method='delete'>#{fa_icon 'trash'}</a>"
+          buttons += "<a href='#{destroy[:url]}' data-remote='true' class='text-success' data-method='delete'><i class='material-icons'>delete_sweep</i></a>"
         end
 
         buttons += "</ul></div>"
@@ -31,15 +31,15 @@ def url_button(show: {}, edit: {}, destroy: {}, dropdown: true, confirm: true)
     if dropdown
       buttons = ""
       if show.any?
-      buttons += "<a href='#{show[:url]}'>#{fa_icon 'search-plus'}</a>"
+      buttons += "<a href='#{show[:url]}' class='text-success'><i class='material-icons'>remove_red_eye</i></a>"
       buttons+= "<span style='padding-right:30px'></span>"
       end
       if edit.any?
-        buttons += "<a href='#{edit[:url]}' data-remote='true' data-target='#modal-window' data-toggle='modal'>#{fa_icon 'pencil'}</a>"
+        buttons += "<a href='#{edit[:url]}' class='text-success' data-remote='true' data-target='#modal' data-toggle='modal'><i class='material-icons'>create</i></a>"
         buttons+= "<span style='padding-right:30px'></span>"
       end 
       if destroy.any?
-        buttons += "<a href='#{destroy[:url]}' data-remote='true' data-method='delete'>#{fa_icon 'trash'}</a>"
+        buttons += "<a href='#{destroy[:url]}' class='text-success' data-remote='true' data-method='delete'><i class='material-icons'>delete_sweep</i></a>"
       end
 
       buttons += "</ul></div>"
@@ -56,7 +56,7 @@ def url_button(show: {}, edit: {}, destroy: {}, dropdown: true, confirm: true)
 	# 	buttons += "<li>#{link_to "Show", show[:url]}</li>"
 	# 	end
 	# 	if edit.any?
-	# 		buttons += "<li>#{link_to "Edit", edit[:url], :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}</li>"
+	# 		buttons += "<li>#{link_to "Edit", edit[:url], :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal'}</li>"
 	# 	end 
 	# 	if destroy.any?
 	# 		buttons += "<li>#{link_to "Delete", destroy[:url], method: :delete, confirm: "Are you sure to delete?", remote: true}</li>"

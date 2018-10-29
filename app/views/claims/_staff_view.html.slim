@@ -1,24 +1,32 @@
-.panel.panel-default
-	.panel-heading
-		.panel-title style="float:left"
-			|List of Claim
 
-		.claim_btn style="text-align:right"
-			= link_to new_claim_path, class: "btn btn-info", :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-claim' do
-			        = fa_icon 'plus'
-			        |&nbsp;New Claim       
-	.panel-body
-		table.table.table-default id="dttb-claims-localhost" class="display" data-source="#{claims_url(format: 'json')}" 
-			thead
-			  tr
-			    th data-data="date"
-			      | Date
-			    th data-data="aasm_state"
-			      | Status
-			    th data-data="total_claim" Total Claim
-			    th data-data="url" Action
-			    
-			 
-
+.row style="margin-top:10px"
+	.col-sm-12
+		.card
+			.card-header.bg-success style="padding-top: 4px; padding-bottom: 0"
+				.d-flex.justify-content-between.bd-highlight.align-items-center
+					.p-2.bd-highlight 
+						h4.text-white Claims
+					.p-2.bd-highlight
+					.p-2.bd-highlight
+						= link_to create_claim_claims_path, class: 'btn btn-float btn-success my-1 btn-sm', method: :get do
+							i class="material-icons" add
+				/.card-title.text-white style="float:left"
+					 |Claims
+				/.btn-add style="text-align:right"
+					= link_to create_claim_claims_path, class: 'btn btn-float btn-success my-1 btn-sm', method: :get do
+						i class="material-icons" add
+					
+			.card-body
+				.table-responsive
+					table.table.table-striped id="dttb-claims-localhost" class="display" data-source="#{claims_url(format: 'json')}" 
+						thead
+						  tr
+						    th data-data="date"
+						      | Date
+						    th data-data="aasm_state"
+						      | Status
+						    th data-data="total_claim" Total (RM)
+						    th data-data="url" Action
 
 /div id="modal-claim" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+

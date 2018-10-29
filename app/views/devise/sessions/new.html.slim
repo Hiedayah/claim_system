@@ -1,27 +1,58 @@
+.container style="padding-top: 150px"
+  .row
+    .col
+    .card.col-sm-6
+      .card-header.text-center
+        h4 LOGIN
+      .card-body
+        = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+          .form-row
+            = f.input :email, label: false, required: false, autofocus: true, wrapper_html: {class: "col-sm-12"}, input_html: {class: "input-height text-center", placeholder: 'Email'}
+            = f.input :password, label: false, required: false, wrapper_html: {class: "col-sm-12"}, input_html: {class: "input-height text-center", placeholder: 'Password'}
+          .form-row 
+            .col-12
+              = f.button :button, t(".create", default: "Sign In"), class: "btn btn-info btn-lg btn-block waves-effect waves-light", data: {disable_with: "Signing in.."}
+          .row
+            /= render "devise/shared/links"
+    .col
+/ .container style="padding-top: 10px"
+/   /.row style="border: 1px solid"
+/   .row
+/     .col
+/     .card.col-sm-7
+/       .card-header style="text-align:center"
+/         h4 LOGIN
 
-.container
-    #signupbox.mainbox.col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2 style="margin-top:50px"
-      .panel
-        .panel-heading.panel-heading-color
-          .panel-title style="color:white; text-align:center; font-weight:bold"
-            |LOG IN
-            div style="float:right;font-size:85%;position: relative; top:-10px"
-            a#signinlink href="#" onclick="$('#signupbox').hide(); $('#loginbox').show()"
-        .panel-body
+/       .card-body style="text-align:center"
+/           = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+/             = f.input :email, required: false, autofocus: true, input_html: { autocomplete: "email", placeholder: 'Email', style: 'text-align: center' }, label: false
+/             = f.input :password, required: false, input_html: { autocomplete: "current-password", placeholder: 'Password', style: 'text-align: center' }, label: false
+/     .col
 
-          = simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'form-horizontal text-center'}) do |f|
-            
-              .form-groups.col-md-10.col-md-offset-2 style="text-align:center"
-                = f.input :email, required: false, autofocus: true, input_html: { autocomplete: "email", placeholder: 'Email', style: 'text-align: center' }, label: false
-                = f.input :password, required: false, input_html: { autocomplete: "current-password", placeholder: 'Password', style: 'text-align: center' }, label: false
-              .row
-                .col-md-8.col-md-offset-2
-                  = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
-              .form-actions style="text-align:center"
-                = f.button :submit, 'Log In'
-                br
-                = render "devise/shared/links"
+/ /.container
+/     #signupbox.mainbox.col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2 style="margin-top:50px"
+/       .card
+/         .card-header.panel-heading-color
+/           .card-title style="color:white; text-align:center; font-weight:bold"
+/             |LOG IN
+/         .card-body
+
+/           = simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'form-horizontal text-center'}) do |f|
+/               .row.align-items-start
+/                   .col
+/                   .col-10
+/                     = f.input :email, required: false, autofocus: true, input_html: { autocomplete: "email", placeholder: 'Email', style: 'text-align: center' }, label: false
+/                     = f.input :password, required: false, input_html: { autocomplete: "current-password", placeholder: 'Password', style: 'text-align: center' }, label: false
+/                   .col
+/               /.col-sm
+/               /.row
+/                 .col-md-8.col-md-offset-2
+/                   = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+/               .form-actions style="text-align:center"
+/                 = f.button :submit, 'Log In',class: 'btn btn-primary'
+/                 br
+/                 = render "devise/shared/links"
               
               
               
-              
+/               

@@ -7,14 +7,17 @@
 			= link_to new_claim_path, class: "btn btn-info", :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-claim' do
 			        = fa_icon 'plus'
 			        |&nbsp;New Claim
+			button.btn.btn-float.btn-primary.my-1 type="button"
+				i class="material-icons" add
 	.panel-body
-		table.table.table-default id="dttb-claims-localhost" class="display" data-source="#{claims_url(admin_claim: "true", format: 'json')}" 
-			thead
-			  tr
-			    th data-data="date"
-			      | Date
-			    th data-data="aasm_state"
-			      | Status
-			    th data-data="total_claim" Total Claim
-			    th data-data="url" Action
-			    
+		.table-responsive
+			table.table.table-default id="dttb-claims-localhost" class="display" data-source="#{claims_url(admin_claim: "true", format: 'json')}" 
+				thead
+				  tr
+				    th data-data="date"
+				      | Date
+				    th data-data="aasm_state"
+				      | Status
+				    th data-data="total_claim" Total Claim
+				    th data-data="url" Action
+				    

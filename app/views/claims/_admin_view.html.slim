@@ -13,58 +13,70 @@
 /    br
 /    = Claim.joins(:staff).where(staffs: {company: "Dnsvault"}).where(@query_date.join(' and ')).where.not(aasm_state: "draft").inspect
 -  @total_submitted_dnsv = Claim.joins(:staff).where(staffs: {company: "Dnsvault"}).where(@query_date.join(' and ')).where.not(aasm_state: "draft").map{|x| x.expenses.sum(&:price)}.sum
--  @total_submitted_lh = Claim.joins(:staff).where(staffs: {company: "Localhost"}).where(@query_date.join(' and ')).where.not(aasm_state: "draft").map{|x| x.expenses.sum(&:price)}.sum    
-.panel.panel-default
-	.panel-body
-		= simple_form_for :search, method: :get do |f|
-			.form-group
-				= f.label :month, class: 'form-label col-md-1'
-				.col-md-4
-					= f.select :month, options_for_select(Date::MONTHNAMES.each_with_index.collect{|m, i| [m, i]}, selected: search.present? ? params[:search][:month].to_i : nil), {},{class: 'form-control'}
-			.form-group
-				= f.label :year, class: 'form-label col-md-1'
-				.col-md-4
-					= f.select :year, options_for_select((Date.today.year-10...Date.today.year+1).collect{|b| [b, b]}, selected: search.present? ? params[:search][:year].to_i : nil), {include_blank: ["-", 0]},{class: 'form-control'}
-			= f.submit "Show Claims", class: 'btn btn-info'
+-  @total_submitted_lh = Claim.joins(:staff).where(staffs: {company: "Localhost"}).where(@query_date.join(' and ')).where.not(aasm_state: "draft").map{|x| x.expenses.sum(&:price)}.sum
+.container-fluid style="padding-top: 10px"
+	.row
+		.col-sm-12
+			.card
+				.card-body
+					= simple_form_for :search, method: :get do |f|
+						.row
+							.col-sm-5
+								.form-group.row
+									= f.label :month, class: 'col-sm-3 col-form-label'
+									.col-sm-7
+										= f.select :month, options_for_select(Date::MONTHNAMES.each_with_index.collect{|m, i| [m, i]}, selected: search.present? ? params[:search][:month].to_i : nil), {},{class: 'form-control'}
 
-.panel.panel-default
-	.panel-heading
-		.panel-title
-			|Claim Dnsvault
-	.panel-body
-		table.table.table-default id="dttb-claims-dnsv" class="display" data-source="#{claims_url(month: (search.present? ? params[:search][:month].to_i : nil), year: (search.present? ? params[:search][:year].to_i : nil),section: "Dnsvault",format: 'json')}" 
-			thead
-			  tr
-			    th data-data="date"
-			      | Date
-			    th data-data="aasm_state"
-			      | Status
-			    th data-data="staff_id"
-			      | Staff
-			    th data-data="total_claim"
-			      | Total
-			    th data-data="url" Action
+							.col-sm-5
+								.form-group.row
+									= f.label :year, class: 'col-sm-3 col-form-label'
+									.col-sm-7
+										= f.select :year, options_for_select((Date.today.year-10...Date.today.year+1).collect{|b| [b, b]}, selected: search.present? ? params[:search][:year].to_i : nil), {include_blank: ["-", 0]},{class: 'form-control'}
 
-	.panel-footer style="text-align:right"
-    	h5.total_dnsv Total RM #{number_with_delimiter "%.2f" % @total_submitted_dnsv}
+							.col-sm-2
+								= f.submit "Show Claims", class: 'btn btn-info'
+	.row style="margin-top:10px"
+		.col-sm-12
+			.card
+				.card-header style="background-color: #1f3a93; color:white"
+					h5 Dnsvault Claims
+				.card-body
+					.table-responsive
+						table.table.table-striped id="dttb-claims-dnsv" class="display" data-source="#{claims_url(month: (search.present? ? params[:search][:month].to_i : nil), year: (search.present? ? params[:search][:year].to_i : nil),section: "Dnsvault",format: 'json')}" 
+							thead
+							  tr
+							    th data-data="date" 
+							      | Date
+							    th data-data="aasm_state"
+							      | Status
+							    th data-data="staff_id"
+							      | Staff
+							    th data-data="total_claim"
+							      | Total (RM)
+							    th data-data="url" Action
 
-.panel.panel-default
-	.panel-heading
-		.panel-title
-			|Claim Localhost 
-	.panel-body
-		table.table.table-default id="dttb-claims-localhost" class="display" data-source="#{claims_url(month: (search.present? ? params[:search][:month].to_i : nil), year: (search.present? ? params[:search][:year].to_i : nil),section: "Localhost",format: 'json')}" 
-			thead
-			  tr
-			    th data-data="date"
-			      | Date
-			    th data-data="aasm_state"
-			      | Status
-			    th data-data="staff_id"
-			      | Staff
-			    th data-data="total_claim"
-			      | Total
-			    th data-data="url" Action
-	.panel-footer style="text-align:right"
-    	h5.total_lh Total RM #{number_with_delimiter "%.2f" % @total_submitted_lh}
+				.card-footer style="text-align:right;background-color: #1f3a93; color:white"
+			    	h5.total_dnsv Total RM #{number_with_delimiter "%.2f" % @total_submitted_dnsv}
+	.row style="margin-top:10px"
+		.col-sm-12
+			.card
+				.card-header style="background-color: #1e824c; color:white"
+					h5 Localhost Claims
+				.card-body 
+					.table-responsive
+							table.table.table-striped id="dttb-claims-localhost" class="display" data-source="#{claims_url(month: (search.present? ? params[:search][:month].to_i : nil), year: (search.present? ? params[:search][:year].to_i : nil),section: "Localhost",format: 'json')}"
+								thead
+								  tr
+								    th data-data="date"
+								      | Date
+								    th data-data="aasm_state"
+								      | Status
+								    th data-data="staff_id"
+								      | Staff
+								    th data-data="total_claim"
+								      | Total (RM)
+								    th data-data="url" Action
 
+				.card-footer style="text-align:right; background-color: #1e824c; color:white"
+			    	h5.total_lh Total RM #{number_with_delimiter "%.2f" % @total_submitted_lh}
+	
